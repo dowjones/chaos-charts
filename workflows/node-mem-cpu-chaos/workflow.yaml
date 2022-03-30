@@ -27,6 +27,9 @@ spec:
           name: node-memory-hog
           template: node-memory-hog
       - - arguments: {}
+          name: node-cpu-hog
+          template: node-cpu-hog
+      - - arguments: {}
           name: revert-chaos
           template: revert-chaos
     - name: install-chaos-experiments

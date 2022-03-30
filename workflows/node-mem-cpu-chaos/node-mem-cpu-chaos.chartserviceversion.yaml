@@ -1,0 +1,40 @@
+apiVersion: litmuchaos.io/v1alpha1
+kind: ChartServiceVersion
+metadata:
+  createdAt: 2022-03-30T12:30:08Z
+  name: node-mem-cpu-chaos
+  version: 0.1.0
+  annotations:
+    categories: node-mem-cpu-chaos
+    chartDescription: Injects chaos on nodes using cmd probe.
+spec:
+  displayName: Node CPU/Mem Chaos
+  categoryDescription: >
+    It generate loads, inject mem/cpu chaos on node and revert the chaos
+  experiments:
+    - node-mem-hog
+    - node-cpu-hog
+  keywords:
+    - Kubernetes
+    - Node
+    - Memory
+    - CPU
+  platforms:
+    - GKE
+    - Minikube
+    - Packet(Kubeadm)
+    - EKS
+    - AKS
+  maintainers:
+    - name: lamc
+      email: crystal.lam@dowjones.com
+  provider:
+    name: ChaosNative
+  links:
+    - name: PIB Slack
+      url: https://app.slack.com/client/T025QN6JG/C03RN9TSG
+    - name: Documentation
+      url: https://docs.litmuschaos.io/docs/chaoshub/#generic-chaos
+  icon:
+    - url:
+      mediatype: image/png

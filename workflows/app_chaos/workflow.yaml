@@ -28,10 +28,10 @@ spec:
             template: pod-memory-hog
         - - name: pod-cpu-hog
             template: pod-cpu-hog
-        - - name: pod-io-stress
-            template: pod-io-stress
-        - - name: disk-fill
-            template: disk-fill
+        # - - name: pod-io-stress
+        #     template: pod-io-stress
+        # - - name: disk-fill
+        #     template: disk-fill
         - - name: revert-chaos
             template: revert-chaos
 
@@ -878,93 +878,93 @@ spec:
           - -file=/tmp/chaosengine.yaml
           - -saveName=/tmp/engine-name
 
-    - name: pod-io-stress
-      inputs:
-        artifacts:
-          - name: pod-io-stress
-            path: /tmp/chaosengine-pod-io-stress.yaml
-            raw:
-              data: |
-                apiVersion: litmuschaos.io/v1alpha1
-                kind: ChaosEngine
-                metadata:
-                  namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  name: pod-io-stress
-                  labels:
-                    instance_id: 0cca82ce-79be-4a8e-8f8f-d0db3f09d5d2
-                    context: pod-io-stress_litmus
-                    workflow_name: pod-io-stress-custom-chaos-workflow-1649101676
-                spec:
-                  engineState: active
-                  appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
-                    appkind: deployment
-                  chaosServiceAccount: litmus-admin
-                  experiments:
-                    - name: pod-io-stress
-                      spec:
-                        components:
-                          env:
-                            - name: TOTAL_CHAOS_DURATION
-                              value: "120"
-                            - name: FILESYSTEM_UTILIZATION_PERCENTAGE
-                              value: "10"
-                            - name: PODS_AFFECTED_PERC
-                              value: ""
-                            - name: CONTAINER_RUNTIME
-                              value: docker
-                            - name: SOCKET_PATH
-                              value: /var/run/docker.sock
-                        probe: []
-                  annotationCheck: "false"
-      container:
-        args:
-          - -file=/tmp/chaosengine-pod-io-stress.yaml
-          - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
-
-    - name: disk-fill
-      inputs:
-        artifacts:
-          - name: disk-fill
-            path: /tmp/chaosengine-disk-fill.yaml
-            raw:
-              data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              kind: ChaosEngine
-              metadata:
-                namespace: "{{workflow.parameters.adminModeNamespace}}"
-                name: disk-fill
-                labels:
-                  instance_id: 380adbbc-3cf3-45d1-b299-36a275ef8b12
-                  workflow_name: disk-fill-kiali-custom-chaos-workflow-1649103866
-              spec:
-                engineState: active
-                auxiliaryAppInfo: ""
-                appinfo:
-                  appns: default
-                  applabel: app=nginx
-                  appkind: deployment
-                chaosServiceAccount: litmus-admin
-                experiments:
-                  - name: disk-fill
-                    spec:
-                      components:
-                        env:
-                          - name: TOTAL_CHAOS_DURATION
-                            value: "60"
-                          - name: FILL_PERCENTAGE
-                            value: "80"
-                          - name: PODS_AFFECTED_PERC
-                            value: ""
-                          - name: CONTAINER_PATH
-                            value: /var/lib/docker/containers
-      container:
-        args:
-          - -file=/tmp/chaosengine-disk-fill.yaml
-          - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+    # - name: pod-io-stress
+    #   inputs:
+    #     artifacts:
+    #       - name: pod-io-stress
+    #         path: /tmp/chaosengine-pod-io-stress.yaml
+    #         raw:
+    #           data: |
+    #             apiVersion: litmuschaos.io/v1alpha1
+    #             kind: ChaosEngine
+    #             metadata:
+    #               namespace: "{{workflow.parameters.adminModeNamespace}}"
+    #               name: pod-io-stress
+    #               labels:
+    #                 instance_id: 0cca82ce-79be-4a8e-8f8f-d0db3f09d5d2
+    #                 context: pod-io-stress_litmus
+    #                 workflow_name: pod-io-stress-custom-chaos-workflow-1649101676
+    #             spec:
+    #               engineState: active
+    #               appinfo:
+    #                 appns: djin-productivity
+    #                 applabel: app=kiali
+    #                 appkind: deployment
+    #               chaosServiceAccount: litmus-admin
+    #               experiments:
+    #                 - name: pod-io-stress
+    #                   spec:
+    #                     components:
+    #                       env:
+    #                         - name: TOTAL_CHAOS_DURATION
+    #                           value: "120"
+    #                         - name: FILESYSTEM_UTILIZATION_PERCENTAGE
+    #                           value: "10"
+    #                         - name: PODS_AFFECTED_PERC
+    #                           value: ""
+    #                         - name: CONTAINER_RUNTIME
+    #                           value: docker
+    #                         - name: SOCKET_PATH
+    #                           value: /var/run/docker.sock
+    #                     probe: []
+    #               annotationCheck: "false"
+    #   container:
+    #     args:
+    #       - -file=/tmp/chaosengine-pod-io-stress.yaml
+    #       - -saveName=/tmp/engine-name
+    #     image: litmuschaos/litmus-checker:latest
+    #
+    # - name: disk-fill
+    #   inputs:
+    #     artifacts:
+    #       - name: disk-fill
+    #         path: /tmp/chaosengine-disk-fill.yaml
+    #         raw:
+    #           data: |
+    #           apiVersion: litmuschaos.io/v1alpha1
+    #           kind: ChaosEngine
+    #           metadata:
+    #             namespace: "{{workflow.parameters.adminModeNamespace}}"
+    #             name: disk-fill
+    #             labels:
+    #               instance_id: 380adbbc-3cf3-45d1-b299-36a275ef8b12
+    #               workflow_name: disk-fill-kiali-custom-chaos-workflow-1649103866
+    #           spec:
+    #             engineState: active
+    #             auxiliaryAppInfo: ""
+    #             appinfo:
+    #               appns: default
+    #               applabel: app=nginx
+    #               appkind: deployment
+    #             chaosServiceAccount: litmus-admin
+    #             experiments:
+    #               - name: disk-fill
+    #                 spec:
+    #                   components:
+    #                     env:
+    #                       - name: TOTAL_CHAOS_DURATION
+    #                         value: "60"
+    #                       - name: FILL_PERCENTAGE
+    #                         value: "80"
+    #                       - name: PODS_AFFECTED_PERC
+    #                         value: ""
+    #                       - name: CONTAINER_PATH
+    #                         value: /var/lib/docker/containers
+    #   container:
+    #     args:
+    #       - -file=/tmp/chaosengine-disk-fill.yaml
+    #       - -saveName=/tmp/engine-name
+    #     image: litmuschaos/litmus-checker:latest
 
     - name: revert-chaos
       container:
@@ -972,5 +972,6 @@ spec:
         command: [sh, -c]
         args:
           [
-            "kubectl delete chaosengine pod-delete pod-memory-hog pod-cpu-hog pod-io-stress disk-fill -n {{workflow.parameters.adminModeNamespace}}",
+            # "kubectl delete chaosengine pod-delete pod-memory-hog pod-cpu-hog pod-io-stress disk-fill -n {{workflow.parameters.adminModeNamespace}}",
+            "kubectl delete chaosengine pod-delete pod-memory-hog pod-cpu-hog -n {{workflow.parameters.adminModeNamespace}}"
           ]

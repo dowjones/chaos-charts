@@ -753,8 +753,8 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  namespace: "{{workflow.parameters.adminModeNamespace}}"
                   name: app-chaos-pod-delete
+                  namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "pod-delete_{{workflow.parameters.appNamespace}}"
                 spec:
@@ -795,8 +795,8 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  namespace: "{{workflow.parameters.adminModeNamespace}}"
                   name: app-chaos-pod-memory-hog
+                  namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "pod-memory-hog_{{workflow.parameters.appNamespace}}"
                 spec:
@@ -882,8 +882,8 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  namespace: "{{workflow.parameters.adminModeNamespace}}"
                   name: app-chaos-pod-io-stress
+                  namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: pod-io-stress_litmus
                 spec:
@@ -926,15 +926,12 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  namespace: "{{workflow.parameters.adminModeNamespace}}"
                   name: app-chaos-disk-fill
+                  namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "disk-fill_{{workflow.parameters.appNamespace}}"
-                    instance_id: 380adbbc-3cf3-45d1-b299-36a275ef8b12
-                    workflow_name: disk-fill-kiali-custom-chaos-workflow-1649103866
                 spec:
                   engineState: active
-                  auxiliaryAppInfo: ""
                   appinfo:
                     appns: djin-productivity
                     applabel: app=kiali

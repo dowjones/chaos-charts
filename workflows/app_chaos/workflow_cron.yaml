@@ -741,13 +741,7 @@ spec:
                     app.kubernetes.io/version: latest
         container:
           args:
-            - kubectl apply -f /tmp/pod-delete.yaml -n
-            {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-network-loss.yaml -n
-            {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n
-            {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-cpu-hog.yaml -n
-            {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-io-stress.yaml -n
-            {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/disk-fill.yaml -n
-            {{workflow.parameters.adminModeNamespace}} | sleep 30
+            - kubectl apply -f /tmp/pod-delete.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-network-loss.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-cpu-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/disk-fill.yaml -n  {{workflow.parameters.adminModeNamespace}} | sleep 30
           command:
             - sh
             - -c
@@ -806,7 +800,7 @@ spec:
                   kind: ChaosEngine
                   metadata:
                     namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    name: pod-memory-hog
+                    name: pod-memory-hog-
                     labels:
                       context: "pod-memory-hog_{{workflow.parameters.appNamespace}}"
                   spec:
@@ -849,7 +843,7 @@ spec:
                   apiVersion: litmuschaos.io/v1alpha1
                   kind: ChaosEngine
                   metadata:
-                    name: kube-proxy-pod-cpu-hog-chaos
+                    name: pod-cpu-hog
                     namespace: {{workflow.parameters.adminModeNamespace}}
                     labels:
                       context: "{{workflow.parameters.appNamespace}}_kube-proxy"
@@ -893,7 +887,7 @@ spec:
                   kind: ChaosEngine
                   metadata:
                     namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    generateName: pod-io-stress
+                    name: pod-io-stress
                     labels:
                       instance_id: 0cca82ce-79be-4a8e-8f8f-d0db3f09d5d2
                       context: pod-io-stress_litmus
@@ -939,7 +933,7 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: disk-fill
+                  name: disk-fill
                   labels:
                     instance_id: 380adbbc-3cf3-45d1-b299-36a275ef8b12
                     workflow_name: disk-fill-kiali-custom-chaos-workflow-1649103866

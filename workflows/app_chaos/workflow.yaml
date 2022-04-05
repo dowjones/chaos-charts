@@ -737,7 +737,12 @@ spec:
                       app.kubernetes.io/version: latest
       container:
         args:
-          - kubectl apply -f /tmp/pod-delete.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-network-loss.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-cpu-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/disk-fill.yaml -n  {{workflow.parameters.adminModeNamespace}} | sleep 30
+          - kubectl apply -f /tmp/pod-delete.yaml -n
+          {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n
+          {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-cpu-hog.yaml -n
+          {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-io-stress.yaml -n
+          {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/disk-fill.yaml -n
+          {{workflow.parameters.adminModeNamespace}} | sleep 30
         command:
           - sh
           - -c

@@ -796,7 +796,7 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  name: pod-memory-hog-
+                  name: pod-memory-hog
                   labels:
                     context: "pod-memory-hog_{{workflow.parameters.appNamespace}}"
                 spec:

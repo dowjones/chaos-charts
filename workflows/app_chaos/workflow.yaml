@@ -26,6 +26,7 @@ spec:
             template: pod-delete
         - - name: pod-memory-hog
             template: pod-memory-hog
+
         - - name: revert-chaos
             template: revert-chaos
 
@@ -344,12 +345,14 @@ spec:
           - name: pod-cpu-hog
             path: /tmp/pod-cpu-hog.yaml
             raw:
-              data: |
+              data: >
                 apiVersion: litmuschaos.io/v1alpha1
+
                 description:
                   message: |
                     Injects cpu consumption on pods belonging to an app deployment
                 kind: ChaosExperiment
+
                 metadata:
                   name: pod-cpu-hog
                 spec:
@@ -411,7 +414,7 @@ spec:
                       name: pod-cpu-hog
       container:
         args:
-          - kubectl apply -f /tmp/pod-delete.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-network-loss.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | sleep 30
+          - kubectl apply -f /tmp/pod-delete.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-cpu-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | sleep 30
         command:
           - sh
           - -c

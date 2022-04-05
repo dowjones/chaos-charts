@@ -845,9 +845,9 @@ spec:
                     context: "{{workflow.parameters.appNamespace}}_kube-proxy"
                 spec:
                   appinfo:
-                    appns: kube-system
-                    applabel: "k8s-app=kube-proxy"
-                    appkind: daemonset
+                    appns: djin-productivity
+                    applabel: app=kiali
+                    appkind: deployment
                   jobCleanUpPolicy: retain
                   engineState: 'active'
                   chaosServiceAccount: litmus-admin
@@ -937,8 +937,8 @@ spec:
                 engineState: active
                 auxiliaryAppInfo: ""
                 appinfo:
-                  appns: default
-                  applabel: app=nginx
+                  appns: djin-productivity
+                  applabel: app=kiali
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
                 experiments:

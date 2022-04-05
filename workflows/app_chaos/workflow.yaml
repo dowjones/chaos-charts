@@ -754,7 +754,7 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-chaos-pod-delete-
+                  name: app-chaos-pod-delete
                   labels:
                     context: "pod-delete_{{workflow.parameters.appNamespace}}"
                 spec:
@@ -796,7 +796,7 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-chaos-pod-memory-hog-
+                  name: app-chaos-pod-memory-hog
                   labels:
                     context: "pod-memory-hog_{{workflow.parameters.appNamespace}}"
                 spec:
@@ -839,7 +839,7 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  generateName: app-chaos-pod-cpu-hog-
+                  name: app-chaos-pod-cpu-hog
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
@@ -883,7 +883,7 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-chaos-pod-io-stress-
+                  name: app-chaos-pod-io-stress
                   labels:
                     context: pod-io-stress_litmus
                 spec:
@@ -927,11 +927,14 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-chaos-disk-fill-
+                  name: app-chaos-disk-fill
                   labels:
                     context: "disk-fill_{{workflow.parameters.appNamespace}}"
+                    instance_id: 380adbbc-3cf3-45d1-b299-36a275ef8b12
+                    workflow_name: disk-fill-kiali-custom-chaos-workflow-1649103866
                 spec:
                   engineState: active
+                  auxiliaryAppInfo: ""
                   appinfo:
                     appns: djin-productivity
                     applabel: app=kiali
@@ -950,11 +953,11 @@ spec:
                               value: ""
                             - name: CONTAINER_PATH
                               value: /var/lib/docker/containers
-        container:
-          args:
-            - -file=/tmp/chaosengine-disk-fill.yaml
-            - -saveName=/tmp/engine-name
-          image: litmuschaos/litmus-checker:latest
+      container:
+        args:
+          - -file=/tmp/chaosengine-disk-fill.yaml
+          - -saveName=/tmp/engine-name
+        image: litmuschaos/litmus-checker:latest
 
     - name: revert-chaos
       container:
@@ -962,5 +965,5 @@ spec:
         command: [sh, -c]
         args:
           [
-            "kubectl delete chaosengine pod-delete pod-memory-hog pod-cpu-hog pod-io-stress disk-fill -n {{workflow.parameters.adminModeNamespace}}",
+            "kubectl delete chaosengine app-chaos-pod-delete app-chaos-pod-memory-hog app-chaos-pod-cpu-hog app-chaos-pod-io-stress app-chaos-disk-fill -n {{workflow.parameters.adminModeNamespace}}",
           ]

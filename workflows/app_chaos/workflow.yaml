@@ -842,7 +842,7 @@ spec:
                   generateName: app-chaos-pod-cpu-hog-
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
-                    context: "{{workflow.parameters.appNamespace}}_kube-proxy"
+                    context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
                     appns: djin-productivity
@@ -885,9 +885,7 @@ spec:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
                   generateName: app-chaos-pod-io-stress-
                   labels:
-                    instance_id: 0cca82ce-79be-4a8e-8f8f-d0db3f09d5d2
                     context: pod-io-stress_litmus
-                    workflow_name: pod-io-stress-custom-chaos-workflow-1649101676
                 spec:
                   engineState: active
                   appinfo:
@@ -925,40 +923,38 @@ spec:
             path: /tmp/chaosengine-disk-fill.yaml
             raw:
               data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              kind: ChaosEngine
-              metadata:
-                namespace: "{{workflow.parameters.adminModeNamespace}}"
-                generateName: app-chaos-disk-fill-
-                labels:
-                  instance_id: 380adbbc-3cf3-45d1-b299-36a275ef8b12
-                  workflow_name: disk-fill-kiali-custom-chaos-workflow-1649103866
-              spec:
-                engineState: active
-                auxiliaryAppInfo: ""
-                appinfo:
-                  appns: djin-productivity
-                  applabel: app=kiali
-                  appkind: deployment
-                chaosServiceAccount: litmus-admin
-                experiments:
-                  - name: disk-fill
-                    spec:
-                      components:
-                        env:
-                          - name: TOTAL_CHAOS_DURATION
-                            value: "60"
-                          - name: FILL_PERCENTAGE
-                            value: "80"
-                          - name: PODS_AFFECTED_PERC
-                            value: ""
-                          - name: CONTAINER_PATH
-                            value: /var/lib/docker/containers
-      container:
-        args:
-          - -file=/tmp/chaosengine-disk-fill.yaml
-          - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  generateName: app-chaos-disk-fill-
+                  labels:
+                    context: "disk-fill_{{workflow.parameters.appNamespace}}"
+                spec:
+                  engineState: active
+                  appinfo:
+                    appns: djin-productivity
+                    applabel: app=kiali
+                    appkind: deployment
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: disk-fill
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "60"
+                            - name: FILL_PERCENTAGE
+                              value: "80"
+                            - name: PODS_AFFECTED_PERC
+                              value: ""
+                            - name: CONTAINER_PATH
+                              value: /var/lib/docker/containers
+        container:
+          args:
+            - -file=/tmp/chaosengine-disk-fill.yaml
+            - -saveName=/tmp/engine-name
+          image: litmuschaos/litmus-checker:latest
 
     - name: revert-chaos
       container:

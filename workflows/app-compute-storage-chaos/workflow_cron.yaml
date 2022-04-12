@@ -22,7 +22,7 @@ spec:
       runAsUser: 1000
     serviceAccountName: argo-chaos
     templates:
-      - name: app-custom-chaos
+      - name: app-pod-custom-chaos
         steps:
           - - name: install-chaos-experiments
               template: install-chaos-experiments

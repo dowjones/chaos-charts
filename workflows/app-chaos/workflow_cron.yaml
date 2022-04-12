@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: kiali-pod-chaos-workflow-
+  generateName: app-pod-chaos-workflow-
   namespace: litmus
   labels:
-    subject: "kiali-pod-chaos_{{workflow.parameters.appNamespace}}"
+    subject: "app-pod-chaos_{{workflow.parameters.appNamespace}}"
 spec:
   schedule: 00 10 * * 1-5
   concurrencyPolicy: Forbid
@@ -16,7 +16,7 @@ spec:
           value: litmus
         - name: appNamespace
           value: djin-productivity
-    entrypoint: kiali-pod-custom-chaos
+    entrypoint: app-pod-custom-chaos
     securityContext:
       runAsNonRoot: true
       runAsUser: 1000
@@ -758,7 +758,7 @@ spec:
                   kind: ChaosEngine
                   metadata:
                     namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    generateName: app-chaos-pod-delete-
+                    name: app-pod-delete
                     labels:
                       context: "pod-delete_{{workflow.parameters.appNamespace}}"
                   spec:
@@ -800,7 +800,7 @@ spec:
                   kind: ChaosEngine
                   metadata:
                     namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    generateName: app-chaos-pod-memory-hog-
+                    name: app-pod-memory-hog
                     labels:
                       context: "pod-memory-hog_{{workflow.parameters.appNamespace}}"
                   spec:
@@ -843,7 +843,7 @@ spec:
                   apiVersion: litmuschaos.io/v1alpha1
                   kind: ChaosEngine
                   metadata:
-                    generateName: app-chaos-pod-cpu-hog-
+                    name: app-pod-cpu-hog
                     namespace: {{workflow.parameters.adminModeNamespace}}
                     labels:
                       context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
@@ -887,7 +887,7 @@ spec:
                   kind: ChaosEngine
                   metadata:
                     namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    generateName: app-chaos-pod-io-stress-
+                    name: app-pod-io-stress
                     labels:
                       context: pod-io-stress_litmus
                   spec:
@@ -931,7 +931,7 @@ spec:
                   kind: ChaosEngine
                   metadata:
                     namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    generateName: app-chaos-disk-fill-
+                    name: app-disk-fill
                     labels:
                       context: "disk-fill_{{workflow.parameters.appNamespace}}"
                   spec:
@@ -966,5 +966,5 @@ spec:
           command: [sh, -c]
           args:
             [
-              "kubectl delete chaosengine pod-delete pod-memory-hog pod-cpu-hog pod-io-stress disk-fill -n {{workflow.parameters.adminModeNamespace}}",
+              "kubectl delete chaosengine app-pod-delete app-pod-memory-hog app-pod-cpu-hog app-pod-io-stress app-disk-fill -n {{workflow.parameters.adminModeNamespace}}",
             ]

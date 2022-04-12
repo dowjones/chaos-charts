@@ -753,7 +753,7 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  name: app-chaos-pod-delete
+                  name: app-pod-delete
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "pod-delete_{{workflow.parameters.appNamespace}}"
@@ -795,7 +795,7 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  name: app-chaos-pod-memory-hog
+                  name: app-pod-memory-hog
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "pod-memory-hog_{{workflow.parameters.appNamespace}}"
@@ -839,7 +839,7 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  name: app-chaos-pod-cpu-hog
+                  name: app-pod-cpu-hog
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
@@ -882,7 +882,7 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  name: app-chaos-pod-io-stress
+                  name: app-pod-io-stress
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: pod-io-stress_litmus
@@ -926,7 +926,7 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  name: app-chaos-disk-fill
+                  name: app-disk-fill
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "disk-fill_{{workflow.parameters.appNamespace}}"
@@ -962,5 +962,5 @@ spec:
         command: [sh, -c]
         args:
           [
-            "kubectl delete chaosengine app-chaos-pod-delete app-chaos-pod-memory-hog app-chaos-pod-cpu-hog app-chaos-pod-io-stress app-chaos-disk-fill -n {{workflow.parameters.adminModeNamespace}}",
+            "kubectl delete chaosengine app-pod-delete app-pod-memory-hog app-pod-cpu-hog app-pod-io-stress app-disk-fill -n {{workflow.parameters.adminModeNamespace}}",
           ]

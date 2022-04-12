@@ -741,7 +741,7 @@ spec:
                         app.kubernetes.io/version: latest
         container:
           args:
-            - kubectl apply -f /tmp/pod-delete.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-network-loss.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-cpu-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/disk-fill.yaml -n  {{workflow.parameters.adminModeNamespace}} | sleep 30
+            - kubectl apply -f /tmp/pod-delete.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-memory-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-cpu-hog.yaml -n  {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/pod-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | kubectl apply -f /tmp/disk-fill.yaml -n  {{workflow.parameters.adminModeNamespace}} | sleep 30
           command:
             - sh
             - -c
@@ -757,8 +757,8 @@ spec:
                   apiVersion: litmuschaos.io/v1alpha1
                   kind: ChaosEngine
                   metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
                     name: app-pod-delete
+                    namespace: {{workflow.parameters.adminModeNamespace}}
                     labels:
                       context: "pod-delete_{{workflow.parameters.appNamespace}}"
                   spec:
@@ -799,8 +799,8 @@ spec:
                   apiVersion: litmuschaos.io/v1alpha1
                   kind: ChaosEngine
                   metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
                     name: app-pod-memory-hog
+                    namespace: {{workflow.parameters.adminModeNamespace}}
                     labels:
                       context: "pod-memory-hog_{{workflow.parameters.appNamespace}}"
                   spec:
@@ -886,8 +886,8 @@ spec:
                   apiVersion: litmuschaos.io/v1alpha1
                   kind: ChaosEngine
                   metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
                     name: app-pod-io-stress
+                    namespace: {{workflow.parameters.adminModeNamespace}}
                     labels:
                       context: pod-io-stress_litmus
                   spec:
@@ -930,8 +930,8 @@ spec:
                   apiVersion: litmuschaos.io/v1alpha1
                   kind: ChaosEngine
                   metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
                     name: app-disk-fill
+                    namespace: {{workflow.parameters.adminModeNamespace}}
                     labels:
                       context: "disk-fill_{{workflow.parameters.appNamespace}}"
                   spec:
@@ -954,11 +954,11 @@ spec:
                                 value: ""
                               - name: CONTAINER_PATH
                                 value: /var/lib/docker/containers
-          container:
-            args:
-              - -file=/tmp/chaosengine-disk-fill.yaml
-              - -saveName=/tmp/engine-name
-            image: litmuschaos/litmus-checker:latest
+        container:
+          args:
+            - -file=/tmp/chaosengine-disk-fill.yaml
+            - -saveName=/tmp/engine-name
+          image: litmuschaos/litmus-checker:latest
 
       - name: revert-chaos
         container:

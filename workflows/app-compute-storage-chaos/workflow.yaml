@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: app-chaos-workflow-
+  generateName: app-compute-storage-chaos-workflow-
   namespace: litmus
   labels:
-    subject: "app-chaos_{{workflow.parameters.appNamespace}}"
+    subject: "app-compute-storage-chaos_{{workflow.parameters.appNamespace}}"
 spec:
   arguments:
     parameters:
@@ -12,7 +12,7 @@ spec:
         value: litmus
       - name: appNamespace
         value: djin-productivity
-  entrypoint: app-custom-chaos
+  entrypoint: app-compute-storage-chaos
   securityContext:
     runAsNonRoot: true
     runAsUser: 1000

@@ -15,7 +15,7 @@ spec:
         - name: adminModeNamespace
           value: litmus
         - name: appNamespace
-          value: djin-productivity
+          value: djin-data
     entrypoint: app-pod-custom-chaos
     securityContext:
       runAsNonRoot: true

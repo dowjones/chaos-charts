@@ -37,8 +37,8 @@ spec:
   provider:
     name: ChaosNative
   links:
-    - name: PIB Slack
-      url: https://app.slack.com/client/T025QN6JG/C03RN9TSG
+    - name: PIB Service Mesh Slack
+      url: https://app.slack.com/client/T025QN6JG/CBQLJ650T
     - name: Documentation
       url: https://docs.litmuschaos.io/docs/chaoshub/#generic-chaos
   icon:

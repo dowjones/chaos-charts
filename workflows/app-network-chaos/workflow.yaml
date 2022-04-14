@@ -1170,7 +1170,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: "{{workflow.parameters.appNamespace}}"
+                    appns: djin-shared
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin

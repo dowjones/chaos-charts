@@ -22,7 +22,7 @@ spec:
       runAsUser: 1000
     serviceAccountName: argo-chaos
     templates:
-      - name: app-pod-custom-chaos
+      - name: app-compute-storage-chaos
         steps:
           - - name: install-chaos-experiments
               template: install-chaos-experiments
@@ -764,7 +764,7 @@ spec:
                   spec:
                     appinfo:
                       appns: djin-productivity
-                      applabel: app=kiali
+                      applabel: mass_chaos=true
                       appkind: deployment
                     engineState: active
                     chaosServiceAccount: litmus-admin
@@ -807,7 +807,7 @@ spec:
                     engineState: active
                     appinfo:
                       appns: djin-productivity
-                      applabel: app=kiali
+                      applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -850,7 +850,7 @@ spec:
                   spec:
                     appinfo:
                       appns: djin-productivity
-                      applabel: app=kiali
+                      applabel: mass_chaos=true
                       appkind: deployment
                     jobCleanUpPolicy: retain
                     engineState: 'active'
@@ -894,7 +894,7 @@ spec:
                     engineState: active
                     appinfo:
                       appns: djin-productivity
-                      applabel: app=kiali
+                      applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -938,7 +938,7 @@ spec:
                     engineState: active
                     appinfo:
                       appns: djin-productivity
-                      applabel: app=kiali
+                      applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:

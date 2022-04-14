@@ -760,7 +760,7 @@ spec:
                 spec:
                   appinfo:
                     appns: djin-productivity
-                    applabel: app=kiali
+                    applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active
                   chaosServiceAccount: litmus-admin
@@ -803,7 +803,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-productivity
-                    applabel: app=kiali
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -846,7 +846,7 @@ spec:
                 spec:
                   appinfo:
                     appns: djin-productivity
-                    applabel: app=kiali
+                    applabel: mass_chaos=true
                     appkind: deployment
                   jobCleanUpPolicy: retain
                   engineState: 'active'
@@ -890,7 +890,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-productivity
-                    applabel: app=kiali
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -934,7 +934,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-productivity
-                    applabel: app=kiali
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:

@@ -22,7 +22,7 @@ spec:
       runAsUser: 1000
     serviceAccountName: argo-chaos
     templates:
-      - name: app-pod-custom-chaos
+      - name: app-compute-storage-chaos
         steps:
           - - name: install-chaos-experiments
               template: install-chaos-experiments
@@ -763,8 +763,8 @@ spec:
                       context: "pod-delete_{{workflow.parameters.appNamespace}}"
                   spec:
                     appinfo:
-                      appns: djin-productivity
-                      applabel: app=kiali
+                      appns: djin-datamgmt
+                      applabel: mass_chaos=true
                       appkind: deployment
                     engineState: active
                     chaosServiceAccount: litmus-admin
@@ -806,8 +806,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-productivity
-                      applabel: app=kiali
+                      appns: djin-datamgmt
+                      applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -849,8 +849,8 @@ spec:
                       context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
                   spec:
                     appinfo:
-                      appns: djin-productivity
-                      applabel: app=kiali
+                      appns: djin-datamgmt
+                      applabel: mass_chaos=true
                       appkind: deployment
                     jobCleanUpPolicy: retain
                     engineState: 'active'
@@ -893,8 +893,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-productivity
-                      applabel: app=kiali
+                      appns: djin-datamgmt
+                      applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -937,8 +937,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-productivity
-                      applabel: app=kiali
+                      appns: djin-datamgmt
+                      applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:

@@ -11,7 +11,7 @@ spec:
       - name: adminModeNamespace
         value: litmus
       - name: appNamespace
-        value: djin-productivity
+        value: djin-user
   entrypoint: app-compute-storage-chaos
   securityContext:
     runAsNonRoot: true
@@ -759,8 +759,8 @@ spec:
                     context: "pod-delete_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-user
+                    applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active
                   chaosServiceAccount: litmus-admin
@@ -802,8 +802,8 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-user
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -845,8 +845,8 @@ spec:
                     context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-user
+                    applabel: mass_chaos=true
                     appkind: deployment
                   jobCleanUpPolicy: retain
                   engineState: 'active'
@@ -889,8 +889,8 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-user
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -933,8 +933,8 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-user
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:

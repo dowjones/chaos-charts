@@ -11,7 +11,7 @@ spec:
       - name: adminModeNamespace
         value: litmus
       - name: appNamespace
-        value: djin-productivity
+        value: "{{workflow..spec.experiments[].spec.components.env.APP_NS}}"
   entrypoint: app-network-chaos
   securityContext:
     runAsNonRoot: true
@@ -1170,8 +1170,8 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: "{{workflow.parameters.appNamespace}}"
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1188,7 +1188,9 @@ spec:
                             - name: SOCKET_PATH
                               value: /var/run/docker.sock
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
+                            - name: APP_NS
+                              value: "djin-shared"
                         probe: []
                   annotationCheck: "false"
       container:
@@ -1216,8 +1218,8 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: djin-productivity
-                  applabel: app=kiali
+                  appns: "{{workflow.parameters.appNamespace}}"
+                  applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
                 experiments:
@@ -1236,7 +1238,9 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
+                          - name: APP_NS
+                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1264,8 +1268,8 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: djin-productivity
-                  applabel: app=kiali
+                  appns: "{{workflow.parameters.appNamespace}}"
+                  applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
                 experiments:
@@ -1282,7 +1286,9 @@ spec:
                           - name: NETWORK_PACKET_CORRUPTION_PERCENTAGE
                             value: "100"
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
+                          - name: APP_NS
+                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1310,8 +1316,8 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: djin-productivity
-                  applabel: app=kiali
+                  appns: "{{workflow.parameters.appNamespace}}"
+                  applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
                 experiments:
@@ -1328,7 +1334,9 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
+                          - name: APP_NS
+                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1356,8 +1364,8 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: djin-productivity
-                  applabel: app=kiali
+                  appns: "{{workflow.parameters.appNamespace}}"
+                  applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
                 experiments:
@@ -1367,6 +1375,10 @@ spec:
                         env:
                           - name: TOTAL_CHAOS_DURATION
                             value: "60"
+                          - name: PODS_AFFECTED_PERC
+                            value: "100"
+                          - name: APP_NS
+                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1393,8 +1405,8 @@ spec:
                   workflow_name: custom-chaos-workflow-1649788330
               spec:
                 appinfo:
-                  appns: djin-productivity
-                  applabel: app=kiali
+                  appns: "{{workflow.parameters.appNamespace}}"
+                  applabel: mass_chaos=true
                   appkind: deployment
                 engineState: active
                 auxiliaryAppInfo: ""
@@ -1415,7 +1427,9 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
+                          - name: APP_NS
+                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1442,8 +1456,8 @@ spec:
                   workflow_name: dns-spoof-custom-chaos-workflow-1649788570
               spec:
                 appinfo:
-                  appns: djin-productivity
-                  applabel: app=kiali
+                  appns: "{{workflow.parameters.appNamespace}}"
+                  applabel: mass_chaos=true
                   appkind: deployment
                 engineState: active
                 auxiliaryAppInfo: ""
@@ -1462,7 +1476,9 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
+                          - name: APP_NS
+                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:

@@ -1170,7 +1170,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: "{{workflow..spec.experiments[].spec.components.env.APP_NS}}"
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin

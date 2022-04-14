@@ -10,7 +10,7 @@ metadata:
 spec:
   displayName: App-Compute-Storage-Chaos
   categoryDescription: >
-    It generate loads, inject compute and storage chaos on app pods,
+    It generate loads, inject compute and storage chaos on ns djin-content app pods,
     uninstall the application and revert the chaos
   experiments:
     - pod-delete

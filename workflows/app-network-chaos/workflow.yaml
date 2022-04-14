@@ -1170,7 +1170,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-shared
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1214,7 +1214,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-shared
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1260,7 +1260,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-shared
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1304,7 +1304,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-shared
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1348,7 +1348,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-shared
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1385,7 +1385,7 @@ spec:
                     context: "pod-dns-error_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-shared
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active
@@ -1432,7 +1432,7 @@ spec:
                     context: "pod-dns-spoof_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-shared
+                    appns: "{{workflow.parameters.appNamespace}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active

@@ -1234,7 +1234,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1278,7 +1278,7 @@ spec:
                           - name: NETWORK_PACKET_CORRUPTION_PERCENTAGE
                             value: "100"
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1322,7 +1322,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1359,6 +1359,8 @@ spec:
                         env:
                           - name: TOTAL_CHAOS_DURATION
                             value: "60"
+                          - name: PODS_AFFECTED_PERC
+                            value: "100"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1405,7 +1407,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1450,7 +1452,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: ""
+                            value: "100"
                       probe: []
                 annotationCheck: "false"
       container:

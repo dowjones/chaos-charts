@@ -1174,8 +1174,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-productivity
-                      applabel: app=kiali
+                      appns: djin-shared
+                      applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -1192,7 +1192,7 @@ spec:
                               - name: SOCKET_PATH
                                 value: /var/run/docker.sock
                               - name: PODS_AFFECTED_PERC
-                                value: ""
+                                value: "100"
                           probe: []
                     annotationCheck: "false"
         container:
@@ -1212,16 +1212,14 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-pod-network-latency
+                  name: app-pod-network-latency
                   labels:
-                    instance_id: 57b276d6-2348-4989-a1c5-67064870ad57
-                    context: pod-network-latency_litmus
-                    workflow_name: pod-latency-custom-chaos-workflow-1649788819
+                    context: "pod-network-latency_{{workflow.parameters.appNamespace}}"
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-shared
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1240,7 +1238,7 @@ spec:
                             - name: SOCKET_PATH
                               value: /var/run/docker.sock
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
         container:
@@ -1260,16 +1258,14 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-pod-network-corruption
+                  name: app-pod-network-corruption
                   labels:
-                    instance_id: 348639d3-b396-46cd-8bbb-e01a15db9be7
-                    context: pod-network-corruption_litmus
-                    workflow_name: custom-chaos-workflow-1649787421
+                    context: "pod-network-corruption_{{workflow.parameters.appNamespace}}"
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-shared
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1286,7 +1282,7 @@ spec:
                             - name: NETWORK_PACKET_CORRUPTION_PERCENTAGE
                               value: "100"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
         container:
@@ -1306,16 +1302,14 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-pod-network-duplication
+                  name: app-pod-network-duplication
                   labels:
-                    instance_id: 292ddc1c-1147-4732-b0d7-42f4ee47ffbe
-                    context: pod-network-duplication_litmus
-                    workflow_name: custom-chaos-workflow-1649788330
+                    context: "pod-network-duplication_{{workflow.parameters.appNamespace}}"
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-shared
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1332,7 +1326,7 @@ spec:
                             - name: SOCKET_PATH
                               value: /var/run/docker.sock
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
         container:
@@ -1352,16 +1346,14 @@ spec:
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  generateName: app-pod-network-partition
+                  name: app-pod-network-partition
                   labels:
-                    instance_id: 33fffa5e-61ba-4475-8090-34c1b35349d7
-                    context: pod-network-partition_litmus
-                    workflow_name: custom-chaos-workflow-1649788330
+                    context: "pod-network-partition_{{workflow.parameters.appNamespace}}"
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-shared
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1371,6 +1363,8 @@ spec:
                           env:
                             - name: TOTAL_CHAOS_DURATION
                               value: "60"
+                            - name: PODS_AFFECTED_PERC
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
         container:
@@ -1389,16 +1383,14 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  generateName: app-pod-dns-error
+                  name: app-pod-dns-error
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
                   labels:
-                    instance_id: 28a55f65-c9e2-4a97-a2fe-bf46eb01690d
-                    context: pod-dns-error_litmus
-                    workflow_name: custom-chaos-workflow-1649788330
+                    context: "pod-dns-error_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-shared
+                    applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active
                   auxiliaryAppInfo: ""
@@ -1419,7 +1411,7 @@ spec:
                             - name: SOCKET_PATH
                               value: /var/run/docker.sock
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
         container:
@@ -1438,16 +1430,14 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  generateName: app-pod-dns-spoof
+                  name: app-pod-dns-spoof
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
                   labels:
-                    instance_id: 4c29238b-6962-43c5-aa05-b8fc4f0cac6e
-                    context: pod-dns-spoof_litmus
-                    workflow_name: dns-spoof-custom-chaos-workflow-1649788570
+                    context: "pod-dns-spoof_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-shared
+                    applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active
                   auxiliaryAppInfo: ""
@@ -1466,7 +1456,7 @@ spec:
                             - name: SOCKET_PATH
                               value: /var/run/docker.sock
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
         container:

@@ -11,7 +11,7 @@ spec:
       - name: adminModeNamespace
         value: litmus
       - name: appNamespace
-        value: "{{workflow..spec.experiments[].spec.components.env.APP_NS}}"
+        value: djin-shared
   entrypoint: app-network-chaos
   securityContext:
     runAsNonRoot: true
@@ -1170,7 +1170,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: "{{workflow.parameters.appNamespace}}"
+                    appns: "{{workflow..spec.experiments[].spec.components.env.APP_NS}}"
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1189,8 +1189,6 @@ spec:
                               value: /var/run/docker.sock
                             - name: PODS_AFFECTED_PERC
                               value: "100"
-                            - name: APP_NS
-                              value: "djin-shared"
                         probe: []
                   annotationCheck: "false"
       container:
@@ -1239,8 +1237,6 @@ spec:
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
                             value: "100"
-                          - name: APP_NS
-                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1287,8 +1283,6 @@ spec:
                             value: "100"
                           - name: PODS_AFFECTED_PERC
                             value: "100"
-                          - name: APP_NS
-                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1335,8 +1329,6 @@ spec:
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
                             value: "100"
-                          - name: APP_NS
-                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1375,10 +1367,6 @@ spec:
                         env:
                           - name: TOTAL_CHAOS_DURATION
                             value: "60"
-                          - name: PODS_AFFECTED_PERC
-                            value: "100"
-                          - name: APP_NS
-                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1428,8 +1416,6 @@ spec:
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
                             value: "100"
-                          - name: APP_NS
-                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1477,8 +1463,6 @@ spec:
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
                             value: "100"
-                          - name: APP_NS
-                            value: "djin-shared"
                       probe: []
                 annotationCheck: "false"
       container:

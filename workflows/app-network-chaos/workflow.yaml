@@ -1156,41 +1156,41 @@ spec:
     - name: pod-network-loss
       inputs:
         artifacts:
-          - name: pod-network-loss
-            path: /tmp/chaosengine-pod-network-loss.yaml
-            raw:
-              data: |
-                apiVersion: litmuschaos.io/v1alpha1
-                kind: ChaosEngine
-                metadata:
-                  namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  name: app-pod-network-loss
-                  labels:
-                    context: "pod-network-loss_{{workflow.parameters.appNamespace}}"
-                spec:
-                  engineState: active
-                  appinfo:
-                    appns: djin-shared
-                    applabel: mass_chaos=true
-                    appkind: deployment
-                  chaosServiceAccount: litmus-admin
-                  experiments:
-                    - name: pod-network-loss
-                      spec:
-                        components:
-                          env:
-                            - name: TOTAL_CHAOS_DURATION
-                              value: "60"
-                            - name: NETWORK_PACKET_LOSS_PERCENTAGE
-                              value: "100"
-                            - name: CONTAINER_RUNTIME
-                              value: docker
-                            - name: SOCKET_PATH
-                              value: /var/run/docker.sock
-                            - name: PODS_AFFECTED_PERC
-                              value: "100"
-                        probe: []
-                  annotationCheck: "false"
+        - name: pod-network-loss
+          path: /tmp/chaosengine-pod-network-loss.yaml
+          raw:
+            data: |
+              apiVersion: litmuschaos.io/v1alpha1
+              kind: ChaosEngine
+              metadata:
+                namespace: "{{workflow.parameters.adminModeNamespace}}"
+                name: app-pod-network-loss
+                labels:
+                  context: "pod-network-loss_{{workflow.parameters.appNamespace}}"
+              spec:
+                engineState: active
+                appinfo:
+                  appns: djin-shared
+                  applabel: mass_chaos=true
+                  appkind: deployment
+                chaosServiceAccount: litmus-admin
+                experiments:
+                  - name: pod-network-loss
+                    spec:
+                      components:
+                        env:
+                          - name: TOTAL_CHAOS_DURATION
+                            value: "60"
+                          - name: NETWORK_PACKET_LOSS_PERCENTAGE
+                            value: "100"
+                          - name: CONTAINER_RUNTIME
+                            value: docker
+                          - name: SOCKET_PATH
+                            value: /var/run/docker.sock
+                          - name: PODS_AFFECTED_PERC
+                            value: "100"
+                      probe: []
+                annotationCheck: "false"
       container:
         args:
           - -file=/tmp/chaosengine-pod-network-loss.yaml

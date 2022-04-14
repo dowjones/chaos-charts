@@ -1216,7 +1216,7 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: "{{workflow.parameters.appNamespace}}"
+                  appns: djin-shared
                   applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
@@ -1236,7 +1236,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: "100"
+                            value: ""
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1264,7 +1264,7 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: "{{workflow.parameters.appNamespace}}"
+                  appns: djin-shared
                   applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
@@ -1282,7 +1282,7 @@ spec:
                           - name: NETWORK_PACKET_CORRUPTION_PERCENTAGE
                             value: "100"
                           - name: PODS_AFFECTED_PERC
-                            value: "100"
+                            value: ""
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1310,7 +1310,7 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: "{{workflow.parameters.appNamespace}}"
+                  appns: djin-shared
                   applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
@@ -1328,7 +1328,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: "100"
+                            value: ""
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1356,7 +1356,7 @@ spec:
               spec:
                 engineState: active
                 appinfo:
-                  appns: "{{workflow.parameters.appNamespace}}"
+                  appns: djin-shared
                   applabel: mass_chaos=true
                   appkind: deployment
                 chaosServiceAccount: litmus-admin
@@ -1393,7 +1393,7 @@ spec:
                   workflow_name: custom-chaos-workflow-1649788330
               spec:
                 appinfo:
-                  appns: "{{workflow.parameters.appNamespace}}"
+                  appns: djin-shared
                   applabel: mass_chaos=true
                   appkind: deployment
                 engineState: active
@@ -1415,7 +1415,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: "100"
+                            value: ""
                       probe: []
                 annotationCheck: "false"
       container:
@@ -1442,7 +1442,7 @@ spec:
                   workflow_name: dns-spoof-custom-chaos-workflow-1649788570
               spec:
                 appinfo:
-                  appns: "{{workflow.parameters.appNamespace}}"
+                  appns: djin-shared
                   applabel: mass_chaos=true
                   appkind: deployment
                 engineState: active
@@ -1462,7 +1462,7 @@ spec:
                           - name: SOCKET_PATH
                             value: /var/run/docker.sock
                           - name: PODS_AFFECTED_PERC
-                            value: "100"
+                            value: ""
                       probe: []
                 annotationCheck: "false"
       container:

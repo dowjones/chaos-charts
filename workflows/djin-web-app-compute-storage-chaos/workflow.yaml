@@ -11,7 +11,7 @@ spec:
       - name: adminModeNamespace
         value: litmus
       - name: appNamespace
-        value: djin-productivity
+        value: djin-web
   entrypoint: app-compute-storage-chaos
   securityContext:
     runAsNonRoot: true
@@ -759,8 +759,8 @@ spec:
                     context: "pod-delete_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-web
+                    applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active
                   chaosServiceAccount: litmus-admin
@@ -776,7 +776,7 @@ spec:
                             - name: FORCE
                               value: "false"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
       container:
@@ -802,8 +802,8 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-web
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -816,7 +816,7 @@ spec:
                             - name: MEMORY_CONSUMPTION
                               value: "500"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: CONTAINER_RUNTIME
                               value: docker
                             - name: SOCKET_PATH
@@ -845,8 +845,8 @@ spec:
                     context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-web
+                    applabel: mass_chaos=true
                     appkind: deployment
                   jobCleanUpPolicy: retain
                   engineState: 'active'
@@ -861,7 +861,7 @@ spec:
                             - name: CPU_CORES
                               value: "1"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: TOTAL_CHAOS_DURATION
                               value: "60" # in seconds
                             - name: CHAOS_KILL_COMMAND
@@ -889,8 +889,8 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-web
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -903,7 +903,7 @@ spec:
                             - name: FILESYSTEM_UTILIZATION_PERCENTAGE
                               value: "10"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: CONTAINER_RUNTIME
                               value: docker
                             - name: SOCKET_PATH
@@ -933,8 +933,8 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-productivity
-                    applabel: app=kiali
+                    appns: djin-web
+                    applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -947,7 +947,7 @@ spec:
                             - name: FILL_PERCENTAGE
                               value: "80"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: CONTAINER_PATH
                               value: /var/lib/docker/containers
       container:

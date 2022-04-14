@@ -776,7 +776,7 @@ spec:
                             - name: FORCE
                               value: "false"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                         probe: []
                   annotationCheck: "false"
       container:
@@ -816,7 +816,7 @@ spec:
                             - name: MEMORY_CONSUMPTION
                               value: "500"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: CONTAINER_RUNTIME
                               value: docker
                             - name: SOCKET_PATH
@@ -861,7 +861,7 @@ spec:
                             - name: CPU_CORES
                               value: "1"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: TOTAL_CHAOS_DURATION
                               value: "60" # in seconds
                             - name: CHAOS_KILL_COMMAND
@@ -903,7 +903,7 @@ spec:
                             - name: FILESYSTEM_UTILIZATION_PERCENTAGE
                               value: "10"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: CONTAINER_RUNTIME
                               value: docker
                             - name: SOCKET_PATH
@@ -947,7 +947,7 @@ spec:
                             - name: FILL_PERCENTAGE
                               value: "80"
                             - name: PODS_AFFECTED_PERC
-                              value: ""
+                              value: "100"
                             - name: CONTAINER_PATH
                               value: /var/lib/docker/containers
       container:

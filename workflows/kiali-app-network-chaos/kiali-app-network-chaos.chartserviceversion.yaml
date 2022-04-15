@@ -2,13 +2,13 @@ apiVersion: litmuchaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
   createdAt: 2022-04-13T22:28:08Z
-  name: djin-productivity-app-network-chaos
+  name: kiali-app-network-chaos
   version: 0.1.0
   annotations:
     categories: app-network-chaos
     chartDescription: Injects pod network chaos on applications using cmd probe.
 spec:
-  displayName: djin-productivity-app-network-chaos
+  displayName: kiali-app-network-chaos
   categoryDescription: >
     It generate loads, inject chaos on nodes and revert the chaos
   experiments:

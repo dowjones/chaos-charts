@@ -1170,7 +1170,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: {{workflow.parameters.appNamespace}}
+                    appns: djin-productivity
                     applabel: app=kiali
                     appkind: deployment
                   chaosServiceAccount: litmus-admin

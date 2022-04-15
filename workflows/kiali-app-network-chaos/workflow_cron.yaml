@@ -1174,8 +1174,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-shared
-                      applabel: mass_chaos=true
+                      appns: djin-productivity
+                      applabel: app=kiali
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -1218,8 +1218,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-shared
-                      applabel: mass_chaos=true
+                      appns: djin-productivity
+                      applabel: app=kiali
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -1264,8 +1264,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-shared
-                      applabel: mass_chaos=true
+                      appns: {{workflow.parameters.appNamespace}}
+                      applabel: app=kiali
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -1308,8 +1308,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-shared
-                      applabel: mass_chaos=true
+                      appns: djin-productivity
+                      applabel: app=kiali
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -1352,8 +1352,8 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-shared
-                      applabel: mass_chaos=true
+                      appns: djin-productivity
+                      applabel: app=kiali
                       appkind: deployment
                     chaosServiceAccount: litmus-admin
                     experiments:
@@ -1389,8 +1389,8 @@ spec:
                       context: "pod-dns-error_{{workflow.parameters.appNamespace}}"
                   spec:
                     appinfo:
-                      appns: djin-shared
-                      applabel: mass_chaos=true
+                      appns: djin-productivity
+                      applabel: app=kiali
                       appkind: deployment
                     engineState: active
                     auxiliaryAppInfo: ""
@@ -1436,8 +1436,8 @@ spec:
                       context: "pod-dns-spoof_{{workflow.parameters.appNamespace}}"
                   spec:
                     appinfo:
-                      appns: djin-shared
-                      applabel: mass_chaos=true
+                      appns: djin-productivity
+                      applabel: app=kiali
                       appkind: deployment
                     engineState: active
                     auxiliaryAppInfo: ""

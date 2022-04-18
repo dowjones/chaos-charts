@@ -860,16 +860,16 @@ spec:
                         spec:
                           components:
                             env:
-                              - name: TARGET_CONTAINER
-                                value: "kube-proxy"
+                              - name: TOTAL_CHAOS_DURATION
+                                value: "60" # in seconds
                               - name: CPU_CORES
                                 value: "1"
                               - name: PODS_AFFECTED_PERC
                                 value: "100"
-                              - name: TOTAL_CHAOS_DURATION
-                                value: "60" # in seconds
-                              - name: CHAOS_KILL_COMMAND
-                                value: "kill -9 $(ps afx | grep \"[md5sum] /dev/zero\" | awk '{print$1}' | tr '\n' ' ')"
+                              - name: CONTAINER_RUNTIME
+                                value: docker
+                              - name: SOCKET_PATH
+                                value: /var/run/docker.sock
         container:
           image: litmuschaos/litmus-checker:latest
           args:

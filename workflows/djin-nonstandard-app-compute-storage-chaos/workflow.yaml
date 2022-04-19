@@ -309,7 +309,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:ci
+                    image: litmuschaos/go-runner:latest
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -330,7 +330,7 @@ spec:
                       - name: LIB
                         value: litmus
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:ci
+                        value: litmuschaos/go-runner:latest
                       - name: STRESS_IMAGE
                         value: alexeiled/stress-ng:latest-ubuntu
                       - name: CONTAINER_RUNTIME
@@ -534,7 +534,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:ci
+                    image: litmuschaos/go-runner:latest
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -563,7 +563,7 @@ spec:
                       - name: LIB
                         value: litmus
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:ci
+                        value: litmuschaos/go-runner:latest
                       - name: CONTAINER_RUNTIME
                         value: docker
                       - name: SOCKET_PATH

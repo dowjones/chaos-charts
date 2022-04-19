@@ -2,17 +2,18 @@ apiVersion: litmuchaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
   createdAt: 2022-04-13T22:28:08Z
-  name: infra-chaos
+  name: kiali-app-network-chaos
   version: 0.1.0
   annotations:
-    categories: infra-chaos
-    chartDescription: Injects chaos on nodes using cmd probe.
+    categories: kiali-app-network-chaos
+    chartDescription: Injects pod network chaos on applications using cmd probe.
 spec:
-  displayName: infra-chaos
+  displayName: kiali-app-network-chaos
   categoryDescription: >
-    It generate loads, inject chaos on nodes and revert the chaos
+    It generate loads, inject pod network chaos on kiali app pods,
+    uninstall the application and revert the chaos
   experiments:
-    - 
+    -
   keywords:
     - Kubernetes
     - Pod

@@ -1264,7 +1264,7 @@ spec:
                   spec:
                     engineState: active
                     appinfo:
-                      appns: djin-content
+                      appns: djin-contentmgmt
                       applabel: mass_chaos=true
                       appkind: deployment
                     chaosServiceAccount: litmus-admin

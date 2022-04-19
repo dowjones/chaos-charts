@@ -10,7 +10,7 @@ metadata:
 spec:
   displayName: djin-shared-app-network-chaos
   categoryDescription: >
-    It generate loads, inject pod network chaos on ns djin-web app pods,
+    It generate loads, inject pod network chaos on ns djin-shared app pods,
     uninstall the application and revert the chaos
   experiments:
     - pod-network-loss

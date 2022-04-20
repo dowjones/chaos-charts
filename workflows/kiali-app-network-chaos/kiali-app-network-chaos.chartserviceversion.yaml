@@ -3,7 +3,7 @@ kind: ChartServiceVersion
 metadata:
   createdAt: 2022-04-13T22:28:08Z
   name: kiali-app-network-chaos
-  version: 0.1.0
+  version: 0.2.0
   annotations:
     categories: kiali-app-network-chaos
     chartDescription: Injects pod network chaos on applications using cmd probe.
@@ -13,7 +13,12 @@ spec:
     It generate loads, inject pod network chaos on kiali app pods,
     uninstall the application and revert the chaos
   experiments:
-    -
+    - pod-network-loss
+    - pod-network-latency
+    - pod-network-corruption
+    - pod-network-dupe
+    - pod-dns-error
+    - pod-dns-spoof
   keywords:
     - Kubernetes
     - Pod

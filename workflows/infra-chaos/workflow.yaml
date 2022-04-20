@@ -23,28 +23,27 @@ spec:
   templates:
     - name: infra-chaos
       steps:
-        - - arguments: {}
-            name: install-chaos-experiments
-            template: install-chaos-experiments
-        - - arguments: {}
-            name: node-cpu-hog
-            template: node-cpu-hog
-        - - arguments: {}
-            name: node-memory-hog
-            template: node-memory-hog
-        - - arguments: {}
-            name: node-drain
-            template: node-drain
-        - - arguments: {}
-            name: node-taint
-            template: node-taint
-
-        - - arguments: {}
-            name: node-io-stress
-            template: node-io-stress
-        - - arguments: {}
-            name: revert-chaos
-            template: revert-chaos
+      - - arguments: {}
+          name: install-chaos-experiments
+          template: install-chaos-experiments
+      - - arguments: {}
+          name: node-cpu-hog
+          template: node-cpu-hog
+      - - arguments: {}
+          name: node-memory-hog
+          template: node-memory-hog
+      - - arguments: {}
+          name: node-drain
+          template: node-drain
+      - - arguments: {}
+          name: node-taint
+          template: node-taint
+      - - arguments: {}
+          name: node-io-stress
+          template: node-io-stress
+      - - arguments: {}
+          name: revert-chaos
+          template: revert-chaos
 
     - name: install-chaos-experiments
       inputs:
@@ -932,6 +931,7 @@ spec:
         labels:
           weight: "6"
       outputs: {}
+
     - name: node-drain
       inputs:
         artifacts:
@@ -972,6 +972,7 @@ spec:
         labels:
           weight: "7"
       outputs: {}
+
     - name: node-taint
       inputs:
         artifacts:
@@ -1014,6 +1015,7 @@ spec:
         labels:
           weight: "7"
       outputs: {}
+
     - name: node-io-stress
       inputs:
         artifacts:
@@ -1062,6 +1064,7 @@ spec:
         labels:
           weight: "8"
       outputs: {}
+
     - name: node-restart
       inputs:
         artifacts:
@@ -1104,16 +1107,10 @@ spec:
         labels:
           weight: "10"
       outputs: {}
+
     - name: revert-chaos
       container:
         args:
           - "kubectl delete chaosengine infra-node-cpu-hog infra-node-memory-hog infra-node-drain infra-node-taint infra-node-io-stress infra-node-restart -n {{workflow.parameters.adminModeNamespace}}"
-        command:
-        - sh
-        - -c
+        command: [sh, -c]
         image: litmuschaos/k8s:latest
-        name: ""
-        resources: {}
-      inputs: {}
-      metadata: {}  
-      outputs: {}

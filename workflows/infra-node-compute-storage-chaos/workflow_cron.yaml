@@ -382,12 +382,12 @@ spec:
                       app.kubernetes.io/version: latest
         container:
           args:
-          - kubectl apply -f /tmp/node-memory-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-cpu-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | sleep 30
+            - kubectl apply -f /tmp/node-memory-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
+              | kubectl apply -f /tmp/node-cpu-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
+              | kubectl apply -f /tmp/node-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | sleep 30
           command:
-          - sh
-          - -c
+            - sh
+            - -c
           image: litmuschaos/k8s:latest
 
       - name: node-memory-hog
@@ -509,9 +509,9 @@ spec:
             - -file=/tmp/chaosengine-node-io-stress.yaml
             - -saveName=/tmp/engine-name
         image: litmuschaos/litmus-checker:latest
-      metadata:
-        labels:
-          weight: "9"
+        metadata:
+          labels:
+            weight: "9"
       - name: revert-chaos
         container:
           image: litmuschaos/k8s:latest

@@ -462,9 +462,9 @@ spec:
           - -file=/tmp/chaosengine.yaml
           - -saveName=/tmp/engine-name
         image: litmuschaos/litmus-checker:latest
-        metadata:
-          labels:
-            weight: "7"
+      metadata:
+        labels:
+          weight: "7"
     - name: node-io-stress
       inputs:
         artifacts:
@@ -507,9 +507,9 @@ spec:
           - -file=/tmp/chaosengine-node-io-stress.yaml
           - -saveName=/tmp/engine-name
         image: litmuschaos/litmus-checker:latest
-        metadata:
-          labels:
-            weight: "9"
+      metadata:
+        labels:
+          weight: "9"
 
     - name: revert-chaos
       container:

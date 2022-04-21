@@ -34,8 +34,8 @@ spec:
             name: node-cpu-hog
             template: node-cpu-hog
         - - arguments: {}
-          name: node-io-stress
-          template: node-io-stress
+            name: node-io-stress
+            template: node-io-stress
         - - arguments: {}
             name: revert-chaos
             template: revert-chaos

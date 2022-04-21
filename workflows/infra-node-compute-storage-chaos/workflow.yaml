@@ -465,51 +465,7 @@ spec:
         metadata:
           labels:
             weight: "7"
-    - name: node-io-stress
-      inputs:
-        artifacts:
-        - name: node-io-stress
-          path: /tmp/chaosengine-node-io-stress.yaml
-          raw:
-            data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              kind: ChaosEngine
-              metadata:
-                namespace: "{{workflow.parameters.adminModeNamespace}}"
-                name: infra-node-io-stress
-                labels:
-                  context: "{{workflow.parameters.context}}"
-              spec:
-                engineState: active
-                auxiliaryAppInfo: ""
-                chaosServiceAccount: litmus-admin
-                experiments:
-                  - name: node-io-stress
-                    spec:
-                      components:
-                        env:
-                          - name: TOTAL_CHAOS_DURATION
-                            value: "120"
-                          - name: FILESYSTEM_UTILIZATION_PERCENTAGE
-                            value: "10"
-                          - name: CPU
-                            value: "1"
-                          - name: NUMBER_OF_WORKERS
-                            value: "4"
-                          - name: NODES_AFFECTED_PERC
-                            value: ""
-                          - name: TARGET_NODES
-                            value: ""
-                      probe: []
-                annotationCheck: "false"
-      container:
-        args:
-          - -file=/tmp/chaosengine-node-io-stress.yaml
-          - -saveName=/tmp/engine-name
-      image: litmuschaos/litmus-checker:latest
-      metadata:
-        labels:
-          weight: "9"
+
     - name: revert-chaos
       container:
         image: litmuschaos/k8s:latest

@@ -17,6 +17,8 @@ spec:
         - name: appNamespace
           value: djin-shared
     entrypoint: app-network-chaos
+    podGC:
+      strategy: OnWorkflowSuccess
     securityContext:
       runAsNonRoot: true
       runAsUser: 1000

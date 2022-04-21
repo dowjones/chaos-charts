@@ -14,7 +14,7 @@ spec:
         value: "node-compute-storage-chaos"
   entrypoint: infra-node-compute-storage-chaos
   podGC:
-    strategy: OnWorkflowCompletion
+    strategy: OnWorkflowSuccess
   securityContext:
     runAsNonRoot: true
     runAsUser: 1000

@@ -10,14 +10,12 @@ metadata:
 spec:
   displayName: infra-node-compute-storage-chaos
   categoryDescription: >
-    It generate loads, inject chaos on nodes and revert the chaos
+    It generate loads, inject compute and storage chaos on nodes
+    and revert the chaos
   experiments:
     - node-cpu-hog
     - node-memory-hog
-    - node-drain
-    - node-taint
     - node-io-stress
-    - node-restart
   keywords:
     - Kubernetes
     - Node

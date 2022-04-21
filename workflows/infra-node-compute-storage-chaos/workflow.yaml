@@ -13,6 +13,8 @@ spec:
       - name: context
         value: "node-compute-storage-chaos"
   entrypoint: infra-node-compute-storage-chaos
+  podGC:
+    strategy: OnWorkflowCompletion
   securityContext:
     runAsNonRoot: true
     runAsUser: 1000
@@ -29,6 +31,9 @@ spec:
       - - arguments: {}
           name: node-cpu-hog
           template: node-cpu-hog
+      - - arguments: {}
+        name: node-io-stress
+        template: node-io-stress
       - - arguments: {}
           name: revert-chaos
           template: revert-chaos
@@ -239,10 +244,145 @@ spec:
 
                   labels:
                     name: node-cpu-hog
+        - name: node-io-stress
+          path: /tmp/node-io-stress.yaml
+          raw:
+            data: |
+              apiVersion: litmuschaos.io/v1alpha1
+              description:
+                message: |
+                  Give IO disk stress on a node belonging to a deployment
+              kind: ChaosExperiment
+              metadata:
+                name: node-io-stress
+                labels:
+                  name: node-io-stress
+                  app.kubernetes.io/part-of: litmus
+                  app.kubernetes.io/component: chaosexperiment
+                  app.kubernetes.io/version: latest
+              spec:
+                definition:
+                  scope: Cluster
+                  permissions:
+                    - apiGroups:
+                        - ""
+                      resources:
+                        - pods
+                      verbs:
+                        - create
+                        - delete
+                        - get
+                        - list
+                        - patch
+                        - update
+                        - deletecollection
+                    - apiGroups:
+                        - ""
+                      resources:
+                        - events
+                      verbs:
+                        - create
+                        - get
+                        - list
+                        - patch
+                        - update
+                    - apiGroups:
+                        - ""
+                      resources:
+                        - configmaps
+                      verbs:
+                        - get
+                        - list
+                    - apiGroups:
+                        - ""
+                      resources:
+                        - pods/log
+                      verbs:
+                        - get
+                        - list
+                        - watch
+                    - apiGroups:
+                        - ""
+                      resources:
+                        - pods/exec
+                      verbs:
+                        - get
+                        - list
+                        - create
+                    - apiGroups:
+                        - batch
+                      resources:
+                        - jobs
+                      verbs:
+                        - create
+                        - list
+                        - get
+                        - delete
+                        - deletecollection
+                    - apiGroups:
+                        - litmuschaos.io
+                      resources:
+                        - chaosengines
+                        - chaosexperiments
+                        - chaosresults
+                      verbs:
+                        - create
+                        - list
+                        - get
+                        - patch
+                        - update
+                        - delete
+                    - apiGroups:
+                        - ""
+                      resources:
+                        - nodes
+                      verbs:
+                        - get
+                        - list
+                  image: litmuschaos/go-runner:latest
+                  imagePullPolicy: Always
+                  args:
+                    - -c
+                    - ./experiments -name node-io-stress
+                  command:
+                    - /bin/bash
+                  env:
+                    - name: TOTAL_CHAOS_DURATION
+                      value: "120"
+                    - name: FILESYSTEM_UTILIZATION_PERCENTAGE
+                      value: "10"
+                    - name: FILESYSTEM_UTILIZATION_BYTES
+                      value: ""
+                    - name: CPU
+                      value: "1"
+                    - name: NUMBER_OF_WORKERS
+                      value: "4"
+                    - name: VM_WORKERS
+                      value: "1"
+                    - name: TARGET_NODES
+                      value: ""
+                    - name: NODE_LABEL
+                      value: ""
+                    - name: RAMP_TIME
+                      value: ""
+                    - name: LIB
+                      value: litmus
+                    - name: LIB_IMAGE
+                      value: litmuschaos/go-runner:latest
+                    - name: NODES_AFFECTED_PERC
+                      value: ""
+                    - name: SEQUENCE
+                      value: parallel
+                  labels:
+                    name: node-io-stress
+                    app.kubernetes.io/part-of: litmus
+                    app.kubernetes.io/component: experiment-job
+                    app.kubernetes.io/version: latest
       container:
         args:
         - kubectl apply -f /tmp/node-memory-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
-          | kubectl apply -f /tmp/node-cpu-hog.yaml -n {{workflow.parameters.adminModeNamespace}} | sleep 30
+          | kubectl apply -f /tmp/node-cpu-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
+          | kubectl apply -f /tmp/node-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | sleep 30
         command:
         - sh
         - -c
@@ -259,11 +399,9 @@ spec:
               kind: ChaosEngine
               metadata:
                 namespace: "{{workflow.parameters.adminModeNamespace}}"
-                name: node-memory-hog-chaos
+                name: infra-node-memory-hog
                 labels:
-                  instance_id: 4a71093b-755a-4f0c-99b5-d8646905bd0c
-                  context: node-memory-hog_litmus
-                  workflow_name: res-mem-custom-chaos-workflow-1648580602
+                  context: "{{workflow.parameters.context}}"
               spec:
                 engineState: active
                 auxiliaryAppInfo: ""
@@ -290,7 +428,7 @@ spec:
         image: litmuschaos/litmus-checker:latest
       metadata:
         labels:
-          weight: "10"
+          weight: "7"
     - name: node-cpu-hog
       inputs:
         artifacts:
@@ -301,7 +439,7 @@ spec:
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
-                  name: node-cpu-hog-chaos
+                  name: infra-node-cpu-hog
                   namespace: {{workflow.parameters.adminModeNamespace}}
                   labels:
                     context: "{{workflow.parameters.context}}"
@@ -326,7 +464,52 @@ spec:
         image: litmuschaos/litmus-checker:latest
         metadata:
           labels:
-            weight: "10"
+            weight: "7"
+    - name: node-io-stress
+      inputs:
+        artifacts:
+        - name: node-io-stress
+          path: /tmp/chaosengine-node-io-stress.yaml
+          raw:
+            data: |
+              apiVersion: litmuschaos.io/v1alpha1
+              kind: ChaosEngine
+              metadata:
+                namespace: "{{workflow.parameters.adminModeNamespace}}"
+                name: infra-node-io-stress
+                labels:
+                  context: "{{workflow.parameters.context}}"
+              spec:
+                engineState: active
+                auxiliaryAppInfo: ""
+                chaosServiceAccount: litmus-admin
+                experiments:
+                  - name: node-io-stress
+                    spec:
+                      components:
+                        env:
+                          - name: TOTAL_CHAOS_DURATION
+                            value: "120"
+                          - name: FILESYSTEM_UTILIZATION_PERCENTAGE
+                            value: "10"
+                          - name: CPU
+                            value: "1"
+                          - name: NUMBER_OF_WORKERS
+                            value: "4"
+                          - name: NODES_AFFECTED_PERC
+                            value: ""
+                          - name: TARGET_NODES
+                            value: ""
+                      probe: []
+                annotationCheck: "false"
+      container:
+        args:
+          - -file=/tmp/chaosengine-node-io-stress.yaml
+          - -saveName=/tmp/engine-name
+      image: litmuschaos/litmus-checker:latest
+    metadata:
+      labels:
+        weight: "9"
     - name: revert-chaos
       container:
         image: litmuschaos/k8s:latest

@@ -22,162 +22,26 @@ spec:
       runAsUser: 1000
     serviceAccountName: argo-chaos
     templates:
-      - name: infra-chaos
+      - name: infra-node-compute-storage-chaos
         steps:
-          - - arguments: {}
-              name: install-chaos-experiments
-              template: install-chaos-experiments
-          - - arguments: {}
-              name: node-cpu-hog
-              template: node-cpu-hog
-          - - arguments: {}
-              name: node-memory-hog
-              template: node-memory-hog
-          - - arguments: {}
-              name: node-drain
-              template: node-drain
-          - - arguments: {}
-              name: node-taint
-              template: node-taint
-
-          - - arguments: {}
-              name: node-io-stress
-              template: node-io-stress
-          - - arguments: {}
-              name: revert-chaos
-              template: revert-chaos
-
+        - - arguments: {}
+            name: install-chaos-experiments
+            template: install-chaos-experiments
+        - - arguments: {}
+            name: node-memory-hog
+            template: node-memory-hog
+        - - arguments: {}
+            name: node-cpu-hog
+            template: node-cpu-hog
+        - - arguments: {}
+          name: node-io-stress
+          template: node-io-stress
+        - - arguments: {}
+            name: revert-chaos
+            template: revert-chaos
       - name: install-chaos-experiments
         inputs:
           artifacts:
-          - name: node-cpu-hog
-            path: /tmp/node-cpu-hog.yaml
-            raw:
-              data: |
-                apiVersion: litmuschaos.io/v1alpha1
-                description:
-                  message: |
-                    Give a cpu spike on a node belonging to a deployment
-                kind: ChaosExperiment
-                metadata:
-                  name: node-cpu-hog
-                  labels:
-                    name: node-cpu-hog
-                    app.kubernetes.io/part-of: litmus
-                    app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
-                spec:
-                  definition:
-                    scope: Cluster
-                    permissions:
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods
-                        verbs:
-                          - create
-                          - delete
-                          - get
-                          - list
-                          - patch
-                          - update
-                          - deletecollection
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - events
-                        verbs:
-                          - create
-                          - get
-                          - list
-                          - patch
-                          - update
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - configmaps
-                        verbs:
-                          - get
-                          - list
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/log
-                        verbs:
-                          - get
-                          - list
-                          - watch
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/exec
-                        verbs:
-                          - get
-                          - list
-                          - create
-                      - apiGroups:
-                          - batch
-                        resources:
-                          - jobs
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - delete
-                          - deletecollection
-                      - apiGroups:
-                          - litmuschaos.io
-                        resources:
-                          - chaosengines
-                          - chaosexperiments
-                          - chaosresults
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - patch
-                          - update
-                          - delete
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - nodes
-                        verbs:
-                          - get
-                          - list
-                    image: litmuschaos/go-runner:latest
-                    imagePullPolicy: Always
-                    args:
-                      - -c
-                      - ./experiments -name node-cpu-hog
-                    command:
-                      - /bin/bash
-                    env:
-                      - name: TOTAL_CHAOS_DURATION
-                        value: "60"
-                      - name: RAMP_TIME
-                        value: ""
-                      - name: NODE_CPU_CORE
-                        value: ""
-                      - name: CPU_LOAD
-                        value: "100"
-                      - name: TARGET_NODES
-                        value: ""
-                      - name: NODE_LABEL
-                        value: ""
-                      - name: LIB
-                        value: litmus
-                      - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
-                      - name: NODES_AFFECTED_PERC
-                        value: ""
-                      - name: SEQUENCE
-                        value: parallel
-                    labels:
-                      name: node-cpu-hog
-                      app.kubernetes.io/part-of: litmus
-                      app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: latest
           - name: node-memory-hog
             path: /tmp/node-memory-hog.yaml
             raw:
@@ -193,7 +57,7 @@ spec:
                     name: node-memory-hog
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                    app.kubernetes.io/version: 2.5.0
                 spec:
                   definition:
                     scope: Cluster
@@ -273,7 +137,7 @@ spec:
                         verbs:
                           - get
                           - list
-                    image: litmuschaos/go-runner:latest
+                    image: litmuschaos/go-runner:2.5.0
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -298,7 +162,7 @@ spec:
                       - name: LIB
                         value: litmus
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
+                        value: litmuschaos/go-runner:2.5.0
                       - name: NODES_AFFECTED_PERC
                         value: ""
                       - name: SEQUENCE
@@ -307,266 +171,81 @@ spec:
                       name: node-memory-hog
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: latest
-          - name: node-drain
-            path: /tmp/node-drain.yaml
+                      app.kubernetes.io/version: 2.5.0
+          - name: node-cpu-hog
+            path: /tmp/node-cpu-hog.yaml
             raw:
               data: |
                 apiVersion: litmuschaos.io/v1alpha1
                 description:
                   message: |
-                    Drain the node where application pod is scheduled
+                    Give a cpu spike on a node belonging to a deployment
                 kind: ChaosExperiment
                 metadata:
-                  name: node-drain
-                  labels:
-                    name: node-drain
-                    app.kubernetes.io/part-of: litmus
-                    app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                  name: node-cpu-hog
                 spec:
                   definition:
                     scope: Cluster
                     permissions:
                       - apiGroups:
                           - ""
+                          - "batch"
+                          - "apps"
+                          - "litmuschaos.io"
                         resources:
-                          - pods
+                          - "jobs"
+                          - "pods"
+                          - "pods/log"
+                          - "events"
+                          - "chaosengines"
+                          - "chaosexperiments"
+                          - "chaosresults"
                         verbs:
-                          - create
-                          - delete
-                          - get
-                          - list
-                          - patch
-                          - update
-                          - deletecollection
+                          - "create"
+                          - "list"
+                          - "get"
+                          - "patch"
+                          - "update"
+                          - "delete"
                       - apiGroups:
                           - ""
                         resources:
-                          - events
+                          - "nodes"
                         verbs:
-                          - create
-                          - get
-                          - list
-                          - patch
-                          - update
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - configmaps
-                        verbs:
-                          - get
-                          - list
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/log
-                        verbs:
-                          - get
-                          - list
-                          - watch
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/exec
-                          - pods/eviction
-                        verbs:
-                          - get
-                          - list
-                          - create
-                      - apiGroups:
-                          - apps
-                        resources:
-                          - daemonsets
-                        verbs:
-                          - list
-                          - get
-                          - delete
-                      - apiGroups:
-                          - batch
-                        resources:
-                          - jobs
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - delete
-                          - deletecollection
-                      - apiGroups:
-                          - litmuschaos.io
-                        resources:
-                          - chaosengines
-                          - chaosexperiments
-                          - chaosresults
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - patch
-                          - update
-                          - delete
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - nodes
-                        verbs:
-                          - get
-                          - list
-                          - patch
-                    image: litmuschaos/go-runner:latest
+                          - "get"
+                          - "list"
+                    image: "litmuschaos/go-runner:latest"
                     imagePullPolicy: Always
                     args:
-                      - -c
-                      - ./experiments -name node-drain
+                    - -c
+                    - ./experiments -name node-cpu-hog
                     command:
-                      - /bin/bash
+                    - /bin/bash
                     env:
-                      - name: TARGET_NODE
-                        value: ""
-                      - name: NODE_LABEL
-                        value: ""
-                      - name: TOTAL_CHAOS_DURATION
-                        value: "60"
-                      - name: LIB
-                        value: litmus
-                      - name: RAMP_TIME
-                        value: ""
+
+                    - name: TOTAL_CHAOS_DURATION
+                      value: '60'
+
+                    # Period to wait before and after injection of chaos in sec
+                    - name: RAMP_TIME
+                      value: ''
+
+                    ## ENTER THE NUMBER OF CORES OF CPU FOR CPU HOGGING
+                    ## OPTIONAL VALUE IN CASE OF EMPTY VALUE IT WILL TAKE NODE CPU CAPACITY
+                    - name: NODE_CPU_CORE
+                      value: ''
+
+                    # PROVIDE THE LIB HERE
+                    # ONLY LITMUS SUPPORTED
+                    - name: LIB
+                      value: 'litmus'
+
+                    # provide lib image
+                    - name: LIB_IMAGE
+                      value: 'litmuschaos/go-runner:latest'
+
                     labels:
-                      name: node-drain
-                      app.kubernetes.io/part-of: litmus
-                      app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: latest
-          - name: node-taint
-            path: /tmp/node-taint.yaml
-            raw:
-              data: |
-                apiVersion: litmuschaos.io/v1alpha1
-                description:
-                  message: |
-                    Taint the node where application pod is scheduled
-                kind: ChaosExperiment
-                metadata:
-                  name: node-taint
-                  labels:
-                    name: node-taint
-                    app.kubernetes.io/part-of: litmus
-                    app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
-                spec:
-                  definition:
-                    scope: Cluster
-                    permissions:
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods
-                        verbs:
-                          - create
-                          - delete
-                          - get
-                          - list
-                          - patch
-                          - update
-                          - deletecollection
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - events
-                        verbs:
-                          - create
-                          - get
-                          - list
-                          - patch
-                          - update
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - configmaps
-                        verbs:
-                          - get
-                          - list
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/log
-                        verbs:
-                          - get
-                          - list
-                          - watch
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/exec
-                          - pods/eviction
-                        verbs:
-                          - get
-                          - list
-                          - create
-                      - apiGroups:
-                          - apps
-                        resources:
-                          - daemonsets
-                        verbs:
-                          - list
-                          - get
-                          - delete
-                      - apiGroups:
-                          - batch
-                        resources:
-                          - jobs
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - delete
-                          - deletecollection
-                      - apiGroups:
-                          - litmuschaos.io
-                        resources:
-                          - chaosengines
-                          - chaosexperiments
-                          - chaosresults
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - patch
-                          - update
-                          - delete
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - nodes
-                        verbs:
-                          - get
-                          - list
-                          - patch
-                          - update
-                    image: litmuschaos/go-runner:latest
-                    imagePullPolicy: Always
-                    args:
-                      - -c
-                      - ./experiments -name node-taint
-                    command:
-                      - /bin/bash
-                    env:
-                      - name: TARGET_NODE
-                        value: ""
-                      - name: NODE_LABEL
-                        value: ""
-                      - name: TOTAL_CHAOS_DURATION
-                        value: "60"
-                      - name: LIB
-                        value: litmus
-                      - name: RAMP_TIME
-                        value: ""
-                      - name: TAINTS
-                        value: ""
-                    labels:
-                      name: node-taint
-                      app.kubernetes.io/part-of: litmus
-                      app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: latest
+                      name: node-cpu-hog
           - name: node-io-stress
             path: /tmp/node-io-stress.yaml
             raw:
@@ -701,420 +380,143 @@ spec:
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
                       app.kubernetes.io/version: latest
-          - name: node-restart
-            path: /tmp/node-restart.yaml
-            raw:
-              data: |
-                apiVersion: litmuschaos.io/v1alpha1
-                description:
-                  message: |
-                    Restart node
-                kind: ChaosExperiment
-                metadata:
-                  name: node-restart
-                  labels:
-                    name: node-restart
-                    app.kubernetes.io/part-of: litmus
-                    app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
-                spec:
-                  definition:
-                    scope: Cluster
-                    permissions:
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods
-                        verbs:
-                          - create
-                          - delete
-                          - get
-                          - list
-                          - patch
-                          - update
-                          - deletecollection
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - events
-                        verbs:
-                          - create
-                          - get
-                          - list
-                          - patch
-                          - update
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - configmaps
-                          - secrets
-                        verbs:
-                          - get
-                          - list
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/log
-                        verbs:
-                          - get
-                          - list
-                          - watch
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - pods/exec
-                        verbs:
-                          - get
-                          - list
-                          - create
-                      - apiGroups:
-                          - batch
-                        resources:
-                          - jobs
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - delete
-                          - deletecollection
-                      - apiGroups:
-                          - litmuschaos.io
-                        resources:
-                          - chaosengines
-                          - chaosexperiments
-                          - chaosresults
-                        verbs:
-                          - create
-                          - list
-                          - get
-                          - patch
-                          - update
-                          - delete
-                      - apiGroups:
-                          - ""
-                        resources:
-                          - nodes
-                        verbs:
-                          - get
-                          - list
-                    image: litmuschaos/go-runner:latest
-                    imagePullPolicy: Always
-                    args:
-                      - -c
-                      - ./experiments -name node-restart
-                    command:
-                      - /bin/bash
-                    env:
-                      - name: SSH_USER
-                        value: root
-                      - name: TOTAL_CHAOS_DURATION
-                        value: "60"
-                      - name: RAMP_TIME
-                        value: ""
-                      - name: LIB
-                        value: litmus
-                      - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
-                      - name: TARGET_NODE
-                        value: ""
-                      - name: NODE_LABEL
-                        value: ""
-                      - name: TARGET_NODE_IP
-                        value: ""
-                    labels:
-                      name: node-restart
-                      app.kubernetes.io/part-of: litmus
-                      app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: latest
-                    secrets:
-                      - name: id-rsa
-                        mountPath: /mnt/
         container:
           args:
-          - kubectl apply -f /tmp/node-cpu-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-memory-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-drain.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-taint.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-restart.yaml -n {{workflow.parameters.adminModeNamespace}}
-            |  sleep 30
+          - kubectl apply -f /tmp/node-memory-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
+            | kubectl apply -f /tmp/node-cpu-hog.yaml -n {{workflow.parameters.adminModeNamespace}}
+            | kubectl apply -f /tmp/node-io-stress.yaml -n {{workflow.parameters.adminModeNamespace}} | sleep 30
           command:
           - sh
           - -c
           image: litmuschaos/k8s:latest
 
-      - name: node-cpu-hog
-
+      - name: node-memory-hog
         inputs:
           artifacts:
-          - name: node-cpu-hog
-            path: /tmp/chaosengine-node-cpu-hog.yaml
+          - name: node-memory-hog
+            path: /tmp/chaosengine-node-memory-hog.yaml
             raw:
               data: |
                 apiVersion: litmuschaos.io/v1alpha1
                 kind: ChaosEngine
                 metadata:
                   namespace: "{{workflow.parameters.adminModeNamespace}}"
-                  name: infra-node-cpu-hog
+                  name: infra-node-memory-hog
                   labels:
-                    context: node-cpu-hog_litmus
+                    context: "{{workflow.parameters.context}}"
                 spec:
                   engineState: active
                   auxiliaryAppInfo: ""
                   chaosServiceAccount: litmus-admin
                   experiments:
-                    - name: node-cpu-hog
+                    - name: node-memory-hog
                       spec:
                         components:
                           env:
                             - name: TOTAL_CHAOS_DURATION
-                              value: "60"
-                            - name: NODE_CPU_CORE
-                              value: ""
+                              value: "120"
+                            - name: MEMORY_CONSUMPTION_PERCENTAGE
+                              value: "30"
                             - name: NODES_AFFECTED_PERC
-                              value: "100"
+                              value: ""
                             - name: TARGET_NODES
                               value: ""
                         probe: []
                   annotationCheck: "false"
         container:
           args:
-          - -file=/tmp/chaosengine-node-cpu-hog.yaml
-          - -saveName=/tmp/engine-name
+            - -file=/tmp/chaosengine-node-memory-hog.yaml
+            - -saveName=/tmp/engine-name
           image: litmuschaos/litmus-checker:latest
-          name: ""
-          resources: {}
         metadata:
           labels:
-            weight: "6"
-        outputs: {}
+            weight: "7"
+      - name: node-cpu-hog
+        inputs:
+          artifacts:
+            - name: node-cpu-hog
+              path: /tmp/chaosengine.yaml
+              raw:
+                data: |
+                  apiVersion: litmuschaos.io/v1alpha1
+                  kind: ChaosEngine
+                  metadata:
+                    name: infra-node-cpu-hog
+                    namespace: {{workflow.parameters.adminModeNamespace}}
+                    labels:
+                      context: "{{workflow.parameters.context}}"
+                  spec:
+                    jobCleanUpPolicy: retain
+                    engineState: 'active'
+                    chaosServiceAccount: litmus-admin
+                    experiments:
+                      - name: node-cpu-hog
+                        spec:
+                          components:
+                            env:
+                              - name: NODE_CPU_CORE
+                                value: '1'
 
-      - name: node-memory-hog
-        inputs:
-          artifacts:
-            - name: node-memory-hog
-              path: /tmp/chaosengine-node-memory-hog.yaml
-              raw:
-                data: |
-                  apiVersion: litmuschaos.io/v1alpha1
-                  kind: ChaosEngine
-                  metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    name: infra-node-memory-hog
-                    labels:
-                      context: node-memory-hog_litmus
-                  spec:
-                    engineState: active
-                    auxiliaryAppInfo: ""
-                    chaosServiceAccount: litmus-admin
-                    experiments:
-                      - name: node-memory-hog
-                        spec:
-                          components:
-                            env:
                               - name: TOTAL_CHAOS_DURATION
-                                value: "120"
-                              - name: MEMORY_CONSUMPTION_PERCENTAGE
-                                value: "30"
-                              - name: NODES_AFFECTED_PERC
-                                value: "100"
-                              - name: TARGET_NODES
-                                value: ""
-                          probe: []
-                    annotationCheck: "false"
+                                value: '60' # in seconds
         container:
           args:
-          - -file=/tmp/chaosengine-node-memory-hog.yaml
-          - -saveName=/tmp/engine-name
+            - -file=/tmp/chaosengine.yaml
+            - -saveName=/tmp/engine-name
           image: litmuschaos/litmus-checker:latest
-          name: ""
-          resources: {}
-        metadata:
-          labels:
-            weight: "6"
-        outputs: {}
-      - name: node-drain
-        inputs:
-          artifacts:
-            - name: node-drain
-              path: /tmp/chaosengine-node-drain.yaml
-              raw:
-                data: |
-                  apiVersion: litmuschaos.io/v1alpha1
-                  kind: ChaosEngine
-                  metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    name: infra-node-drain
-                    labels:
-                      context: node-drain_litmus
-                  spec:
-                    engineState: active
-                    auxiliaryAppInfo: ""
-                    chaosServiceAccount: litmus-admin
-                    experiments:
-                      - name: node-drain
-                        spec:
-                          components:
-                            env:
-                              - name: TOTAL_CHAOS_DURATION
-                                value: "60"
-                              - name: TARGET_NODE
-                                value: ""
-                          probe: []
-                    annotationCheck: "false"
-        container:
-          args:
-          - -file=/tmp/chaosengine-node-drain.yaml
-          - -saveName=/tmp/engine-name
-          image: litmuschaos/litmus-checker:latest
-          name: ""
-          resources: {}
-        metadata:
-          labels:
-            weight: "7"
-        outputs: {}
-      - name: node-taint
-        inputs:
-          artifacts:
-            - name: node-taint
-              path: /tmp/chaosengine-node-taint.yaml
-              raw:
-                data: |
-                  apiVersion: litmuschaos.io/v1alpha1
-                  kind: ChaosEngine
-                  metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    name: infra-node-taint
-                    labels:
-                      context: node-taint_litmus
-                  spec:
-                    engineState: active
-                    auxiliaryAppInfo: ""
-                    chaosServiceAccount: litmus-admin
-                    experiments:
-                      - name: node-taint
-                        spec:
-                          components:
-                            env:
-                              - name: TOTAL_CHAOS_DURATION
-                                value: "60"
-                              - name: TARGET_NODE
-                                value: ""
-                              - name: TAINTS
-                                value: node.kubernetes.io/unreachable:NoExecute
-                          probe: []
-                    annotationCheck: "false"
-        container:
-          args:
-          - -file=/tmp/chaosengine-node-taint.yaml
-          - -saveName=/tmp/engine-name
-          image: litmuschaos/litmus-checker:latest
-          name: ""
-          resources: {}
-        metadata:
-          labels:
-            weight: "7"
-        outputs: {}
+          metadata:
+            labels:
+              weight: "7"
       - name: node-io-stress
         inputs:
           artifacts:
-            - name: node-io-stress
-              path: /tmp/chaosengine-node-io-stress.yaml
-              raw:
-                data: |
-                  apiVersion: litmuschaos.io/v1alpha1
-                  kind: ChaosEngine
-                  metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    name: infra-node-io-stress
-                    labels:
-                      context: node-io-stress_litmus
-                  spec:
-                    engineState: active
-                    auxiliaryAppInfo: ""
-                    chaosServiceAccount: litmus-admin
-                    experiments:
-                      - name: node-io-stress
-                        spec:
-                          components:
-                            env:
-                              - name: TOTAL_CHAOS_DURATION
-                                value: "120"
-                              - name: FILESYSTEM_UTILIZATION_PERCENTAGE
-                                value: "10"
-                              - name: CPU
-                                value: "1"
-                              - name: NUMBER_OF_WORKERS
-                                value: "4"
-                              - name: NODES_AFFECTED_PERC
-                                value: "100"
-                              - name: TARGET_NODES
-                                value: ""
-                          probe: []
-                    annotationCheck: "false"
+          - name: node-io-stress
+            path: /tmp/chaosengine-node-io-stress.yaml
+            raw:
+              data: |
+                apiVersion: litmuschaos.io/v1alpha1
+                kind: ChaosEngine
+                metadata:
+                  namespace: "{{workflow.parameters.adminModeNamespace}}"
+                  name: infra-node-io-stress
+                  labels:
+                    context: "{{workflow.parameters.context}}"
+                spec:
+                  engineState: active
+                  auxiliaryAppInfo: ""
+                  chaosServiceAccount: litmus-admin
+                  experiments:
+                    - name: node-io-stress
+                      spec:
+                        components:
+                          env:
+                            - name: TOTAL_CHAOS_DURATION
+                              value: "120"
+                            - name: FILESYSTEM_UTILIZATION_PERCENTAGE
+                              value: "10"
+                            - name: CPU
+                              value: "1"
+                            - name: NUMBER_OF_WORKERS
+                              value: "4"
+                            - name: NODES_AFFECTED_PERC
+                              value: ""
+                            - name: TARGET_NODES
+                              value: ""
+                        probe: []
+                  annotationCheck: "false"
         container:
           args:
-          - -file=/tmp/chaosengine-node-io-stress.yaml
-          - -saveName=/tmp/engine-name
-          image: litmuschaos/litmus-checker:latest
-          name: ""
-          resources: {}
-        metadata:
-          labels:
-            weight: "8"
-        outputs: {}
-      - name: node-restart
-        inputs:
-          artifacts:
-            - name: node-restart
-              path: /tmp/chaosengine-node-restart.yaml
-              raw:
-                data: |
-                  apiVersion: litmuschaos.io/v1alpha1
-                  kind: ChaosEngine
-                  metadata:
-                    namespace: "{{workflow.parameters.adminModeNamespace}}"
-                    name: infra-node-restart
-                    labels:
-                      context: node-restart_litmus
-                  spec:
-                    engineState: active
-                    auxiliaryAppInfo: ""
-                    chaosServiceAccount: litmus-admin
-                    experiments:
-                      - name: node-restart
-                        spec:
-                          components:
-                            env:
-                              - name: TOTAL_CHAOS_DURATION
-                                value: "60"
-                              - name: TARGET_NODE
-                                value: ""
-                              - name: TARGET_NODE_IP
-                                value: ""
-                              - name: SSH_USER
-                                value: root
-        container:
-          args:
-          - -file=/tmp/chaosengine-node-restart.yaml
-          - -saveName=/tmp/engine-name
-          image: litmuschaos/litmus-checker:latest
-          name: ""
-          resources: {}
-        metadata:
-          labels:
-            weight: "10"
-        outputs: {}
+            - -file=/tmp/chaosengine-node-io-stress.yaml
+            - -saveName=/tmp/engine-name
+        image: litmuschaos/litmus-checker:latest
+      metadata:
+        labels:
+          weight: "9"
       - name: revert-chaos
         container:
-          args:
-            - "kubectl delete chaosengine infra-node-cpu-hog infra-node-memory-hog infra-node-drain infra-node-taint infra-node-io-stress infra-node-restart -n {{workflow.parameters.adminModeNamespace}}"
-          command:
-          - sh
-          - -c
           image: litmuschaos/k8s:latest
-          name: ""
-          resources: {}
-        inputs: {}
-        metadata: {}
-        outputs: {}
+          command: [sh, -c]
+          args:
+            [
+              "kubectl delete chaosengine node-memory-hog-chaos node-cpu-hog-chaos -n {{workflow.parameters.adminModeNamespace}}",
+            ]

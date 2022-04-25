@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: infra-node-compute-storage-chaos-workflow-
+  generateName: infra-single-node-chaos-workflow-
   namespace: litmus
   labels:
-    subject: "infra-node-compute-storage-chaos_{{workflow.parameters.adminModeNamespace}}"
+    subject: "infra-single-node-chaos_{{workflow.parameters.adminModeNamespace}}"
 spec:
   schedule: 00 10 * * 1-5
   concurrencyPolicy: Forbid
@@ -16,7 +16,7 @@ spec:
           value: litmus
         - name: context
           value: "node-compute-storage-chaos_{{workflow.parameters.adminModeNamespace}}"
-    entrypoint: infra-node-compute-storage-chaos
+    entrypoint: infra-single-node-chaos
     podGC:
       strategy: OnWorkflowSuccess
     securityContext:

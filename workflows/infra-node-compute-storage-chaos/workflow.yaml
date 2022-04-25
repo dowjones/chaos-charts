@@ -11,7 +11,7 @@ spec:
       - name: adminModeNamespace
         value: litmus
       - name: context
-        value: "node-compute-storage-chaos"
+        value: "node-compute-storage-chaos_{{workflow.parameters.adminModeNamespace}}"
   entrypoint: infra-node-compute-storage-chaos
   podGC:
     strategy: OnWorkflowSuccess

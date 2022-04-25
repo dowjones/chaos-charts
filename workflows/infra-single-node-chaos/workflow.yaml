@@ -20,511 +20,555 @@ spec:
     runAsUser: 1000
   serviceAccountName: argo-chaos
   templates:
-    - name: infra-single-node-chaos
-      steps:
-      - - arguments: {}
-          name: install-chaos-experiments
-          template: install-chaos-experiments
-      - - arguments: {}
-          name: node-taint
-          template: node-taint
-      - - arguments: {}
-          name: node-drain
-          template: node-drain
-      - - arguments: {}
-          name: node-restart
-          template: node-restart
-      - - arguments: {}
-          name: revert-chaos
-          template: revert-chaos
-    - name: install-chaos-experiments
-      inputs:
-        artifacts:
-        - name: node-taint
-          path: /tmp/node-taint.yaml
-          raw:
-            data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              description:
-                message: |
-                  Taint the node where application pod is scheduled
-              kind: ChaosExperiment
-              metadata:
+  - name: infra-single-node-chaos
+    steps:
+    - - arguments: {}
+        name: install-chaos-experiments
+        template: install-chaos-experiments
+    - - arguments: {}
+        name: node-taint
+        template: node-taint
+    - - arguments: {}
+        name: node-drain
+        template: node-drain
+    - - arguments: {}
+        name: node-restart
+        template: node-restart
+    - - arguments: {}
+        name: revert-chaos
+        template: revert-chaos
+  - name: install-chaos-experiments
+    inputs:
+      artifacts:
+      - name: node-taint
+        path: /tmp/node-taint.yaml
+        raw:
+          data: |
+            apiVersion: litmuschaos.io/v1alpha1
+            description:
+              message: |
+                Taint the node where application pod is scheduled
+            kind: ChaosExperiment
+            metadata:
+              name: node-taint
+              labels:
                 name: node-taint
+                app.kubernetes.io/part-of: litmus
+                app.kubernetes.io/component: chaosexperiment
+                app.kubernetes.io/version: latest
+            spec:
+              definition:
+                scope: Cluster
+                permissions:
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods
+                    verbs:
+                      - create
+                      - delete
+                      - get
+                      - list
+                      - patch
+                      - update
+                      - deletecollection
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - events
+                    verbs:
+                      - create
+                      - get
+                      - list
+                      - patch
+                      - update
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - configmaps
+                    verbs:
+                      - get
+                      - list
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods/log
+                    verbs:
+                      - get
+                      - list
+                      - watch
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods/exec
+                      - pods/eviction
+                    verbs:
+                      - get
+                      - list
+                      - create
+                  - apiGroups:
+                      - apps
+                    resources:
+                      - daemonsets
+                    verbs:
+                      - list
+                      - get
+                      - delete
+                  - apiGroups:
+                      - batch
+                    resources:
+                      - jobs
+                    verbs:
+                      - create
+                      - list
+                      - get
+                      - delete
+                      - deletecollection
+                  - apiGroups:
+                      - litmuschaos.io
+                    resources:
+                      - chaosengines
+                      - chaosexperiments
+                      - chaosresults
+                    verbs:
+                      - create
+                      - list
+                      - get
+                      - patch
+                      - update
+                      - delete
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - nodes
+                    verbs:
+                      - get
+                      - list
+                      - patch
+                      - update
+                image: litmuschaos/go-runner:latest
+                imagePullPolicy: Always
+                args:
+                  - -c
+                  - ./experiments -name node-taint
+                command:
+                  - /bin/bash
+                env:
+                  - name: TARGET_NODE
+                    value: ""
+                  - name: NODE_LABEL
+                    value: ""
+                  - name: TOTAL_CHAOS_DURATION
+                    value: "60"
+                  - name: LIB
+                    value: litmus
+                  - name: RAMP_TIME
+                    value: ""
+                  - name: TAINTS
+                    value: ""
                 labels:
                   name: node-taint
                   app.kubernetes.io/part-of: litmus
-                  app.kubernetes.io/component: chaosexperiment
+                  app.kubernetes.io/component: experiment-job
                   app.kubernetes.io/version: latest
-              spec:
-                definition:
-                  scope: Cluster
-                  permissions:
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods
-                      verbs:
-                        - create
-                        - delete
-                        - get
-                        - list
-                        - patch
-                        - update
-                        - deletecollection
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - events
-                      verbs:
-                        - create
-                        - get
-                        - list
-                        - patch
-                        - update
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - configmaps
-                      verbs:
-                        - get
-                        - list
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods/log
-                      verbs:
-                        - get
-                        - list
-                        - watch
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods/exec
-                        - pods/eviction
-                      verbs:
-                        - get
-                        - list
-                        - create
-                    - apiGroups:
-                        - apps
-                      resources:
-                        - daemonsets
-                      verbs:
-                        - list
-                        - get
-                        - delete
-                    - apiGroups:
-                        - batch
-                      resources:
-                        - jobs
-                      verbs:
-                        - create
-                        - list
-                        - get
-                        - delete
-                        - deletecollection
-                    - apiGroups:
-                        - litmuschaos.io
-                      resources:
-                        - chaosengines
-                        - chaosexperiments
-                        - chaosresults
-                      verbs:
-                        - create
-                        - list
-                        - get
-                        - patch
-                        - update
-                        - delete
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - nodes
-                      verbs:
-                        - get
-                        - list
-                        - patch
-                        - update
-                  image: litmuschaos/go-runner:latest
-                  imagePullPolicy: Always
-                  args:
-                    - -c
-                    - ./experiments -name node-taint
-                  command:
-                    - /bin/bash
-                  env:
-                    - name: TARGET_NODE
-                      value: ""
-                    - name: NODE_LABEL
-                      value: ""
-                    - name: TOTAL_CHAOS_DURATION
-                      value: "60"
-                    - name: LIB
-                      value: litmus
-                    - name: RAMP_TIME
-                      value: ""
-                    - name: TAINTS
-                      value: ""
-                  labels:
-                    name: node-taint
-                    app.kubernetes.io/part-of: litmus
-                    app.kubernetes.io/component: experiment-job
-                    app.kubernetes.io/version: latest
-        - name: node-drain
-          path: /tmp/node-drain.yaml
-          raw:
-            data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              description:
-                message: |
-                  Drain the node where application pod is scheduled
-              kind: ChaosExperiment
-              metadata:
+      - name: node-drain
+        path: /tmp/node-drain.yaml
+        raw:
+          data: |
+            apiVersion: litmuschaos.io/v1alpha1
+            description:
+              message: |
+                Drain the node where application pod is scheduled
+            kind: ChaosExperiment
+            metadata:
+              name: node-drain
+              labels:
                 name: node-drain
+                app.kubernetes.io/part-of: litmus
+                app.kubernetes.io/component: chaosexperiment
+                app.kubernetes.io/version: latest
+            spec:
+              definition:
+                scope: Cluster
+                permissions:
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods
+                    verbs:
+                      - create
+                      - delete
+                      - get
+                      - list
+                      - patch
+                      - update
+                      - deletecollection
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - events
+                    verbs:
+                      - create
+                      - get
+                      - list
+                      - patch
+                      - update
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - configmaps
+                    verbs:
+                      - get
+                      - list
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods/log
+                    verbs:
+                      - get
+                      - list
+                      - watch
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods/exec
+                      - pods/eviction
+                    verbs:
+                      - get
+                      - list
+                      - create
+                  - apiGroups:
+                      - apps
+                    resources:
+                      - daemonsets
+                    verbs:
+                      - list
+                      - get
+                      - delete
+                  - apiGroups:
+                      - batch
+                    resources:
+                      - jobs
+                    verbs:
+                      - create
+                      - list
+                      - get
+                      - delete
+                      - deletecollection
+                  - apiGroups:
+                      - litmuschaos.io
+                    resources:
+                      - chaosengines
+                      - chaosexperiments
+                      - chaosresults
+                    verbs:
+                      - create
+                      - list
+                      - get
+                      - patch
+                      - update
+                      - delete
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - nodes
+                    verbs:
+                      - get
+                      - list
+                      - patch
+                image: litmuschaos/go-runner:latest
+                imagePullPolicy: Always
+                args:
+                  - -c
+                  - ./experiments -name node-drain
+                command:
+                  - /bin/bash
+                env:
+                  - name: TARGET_NODE
+                    value: ""
+                  - name: NODE_LABEL
+                    value: ""
+                  - name: TOTAL_CHAOS_DURATION
+                    value: "60"
+                  - name: LIB
+                    value: litmus
+                  - name: RAMP_TIME
+                    value: ""
                 labels:
                   name: node-drain
                   app.kubernetes.io/part-of: litmus
-                  app.kubernetes.io/component: chaosexperiment
+                  app.kubernetes.io/component: experiment-job
                   app.kubernetes.io/version: latest
-              spec:
-                definition:
-                  scope: Cluster
-                  permissions:
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods
-                      verbs:
-                        - create
-                        - delete
-                        - get
-                        - list
-                        - patch
-                        - update
-                        - deletecollection
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - events
-                      verbs:
-                        - create
-                        - get
-                        - list
-                        - patch
-                        - update
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - configmaps
-                      verbs:
-                        - get
-                        - list
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods/log
-                      verbs:
-                        - get
-                        - list
-                        - watch
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods/exec
-                        - pods/eviction
-                      verbs:
-                        - get
-                        - list
-                        - create
-                    - apiGroups:
-                        - apps
-                      resources:
-                        - daemonsets
-                      verbs:
-                        - list
-                        - get
-                        - delete
-                    - apiGroups:
-                        - batch
-                      resources:
-                        - jobs
-                      verbs:
-                        - create
-                        - list
-                        - get
-                        - delete
-                        - deletecollection
-                    - apiGroups:
-                        - litmuschaos.io
-                      resources:
-                        - chaosengines
-                        - chaosexperiments
-                        - chaosresults
-                      verbs:
-                        - create
-                        - list
-                        - get
-                        - patch
-                        - update
-                        - delete
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - nodes
-                      verbs:
-                        - get
-                        - list
-                        - patch
-                  image: litmuschaos/go-runner:latest
-                  imagePullPolicy: Always
-                  args:
-                    - -c
-                    - ./experiments -name node-drain
-                  command:
-                    - /bin/bash
-                  env:
-                    - name: TARGET_NODE
-                      value: ""
-                    - name: NODE_LABEL
-                      value: ""
-                    - name: TOTAL_CHAOS_DURATION
-                      value: "60"
-                    - name: LIB
-                      value: litmus
-                    - name: RAMP_TIME
-                      value: ""
-                  labels:
-                    name: node-drain
-                    app.kubernetes.io/part-of: litmus
-                    app.kubernetes.io/component: experiment-job
-                    app.kubernetes.io/version: latest
-        - name: node-restart
-          path: /tmp/node-restart.yaml
-          raw:
-            data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              description:
-                message: |
-                  Restart node
-              kind: ChaosExperiment
-              metadata:
+      - name: node-restart
+        path: /tmp/node-restart.yaml
+        raw:
+          data: |
+            apiVersion: litmuschaos.io/v1alpha1
+            description:
+              message: |
+                Restart node
+            kind: ChaosExperiment
+            metadata:
+              name: node-restart
+              labels:
                 name: node-restart
+                app.kubernetes.io/part-of: litmus
+                app.kubernetes.io/component: chaosexperiment
+                app.kubernetes.io/version: latest
+            spec:
+              definition:
+                scope: Cluster
+                permissions:
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods
+                    verbs:
+                      - create
+                      - delete
+                      - get
+                      - list
+                      - patch
+                      - update
+                      - deletecollection
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - events
+                    verbs:
+                      - create
+                      - get
+                      - list
+                      - patch
+                      - update
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - configmaps
+                      - secrets
+                    verbs:
+                      - get
+                      - list
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods/log
+                    verbs:
+                      - get
+                      - list
+                      - watch
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - pods/exec
+                    verbs:
+                      - get
+                      - list
+                      - create
+                  - apiGroups:
+                      - batch
+                    resources:
+                      - jobs
+                    verbs:
+                      - create
+                      - list
+                      - get
+                      - delete
+                      - deletecollection
+                  - apiGroups:
+                      - litmuschaos.io
+                    resources:
+                      - chaosengines
+                      - chaosexperiments
+                      - chaosresults
+                    verbs:
+                      - create
+                      - list
+                      - get
+                      - patch
+                      - update
+                      - delete
+                  - apiGroups:
+                      - ""
+                    resources:
+                      - nodes
+                    verbs:
+                      - get
+                      - list
+                image: litmuschaos/go-runner:latest
+                imagePullPolicy: Always
+                args:
+                  - -c
+                  - ./experiments -name node-restart
+                command:
+                  - /bin/bash
+                env:
+                  - name: SSH_USER
+                    value: root
+                  - name: TOTAL_CHAOS_DURATION
+                    value: "60"
+                  - name: RAMP_TIME
+                    value: ""
+                  - name: LIB
+                    value: litmus
+                  - name: LIB_IMAGE
+                    value: litmuschaos/go-runner:latest
+                  - name: TARGET_NODE
+                    value: ""
+                  - name: NODE_LABEL
+                    value: ""
+                  - name: TARGET_NODE_IP
+                    value: ""
                 labels:
                   name: node-restart
                   app.kubernetes.io/part-of: litmus
-                  app.kubernetes.io/component: chaosexperiment
+                  app.kubernetes.io/component: experiment-job
                   app.kubernetes.io/version: latest
-              spec:
-                definition:
-                  scope: Cluster
-                  permissions:
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods
-                      verbs:
-                        - create
-                        - delete
-                        - get
-                        - list
-                        - patch
-                        - update
-                        - deletecollection
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - events
-                      verbs:
-                        - create
-                        - get
-                        - list
-                        - patch
-                        - update
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - configmaps
-                        - secrets
-                      verbs:
-                        - get
-                        - list
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods/log
-                      verbs:
-                        - get
-                        - list
-                        - watch
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - pods/exec
-                      verbs:
-                        - get
-                        - list
-                        - create
-                    - apiGroups:
-                        - batch
-                      resources:
-                        - jobs
-                      verbs:
-                        - create
-                        - list
-                        - get
-                        - delete
-                        - deletecollection
-                    - apiGroups:
-                        - litmuschaos.io
-                      resources:
-                        - chaosengines
-                        - chaosexperiments
-                        - chaosresults
-                      verbs:
-                        - create
-                        - list
-                        - get
-                        - patch
-                        - update
-                        - delete
-                    - apiGroups:
-                        - ""
-                      resources:
-                        - nodes
-                      verbs:
-                        - get
-                        - list
-                  image: litmuschaos/go-runner:latest
-                  imagePullPolicy: Always
-                  args:
-                    - -c
-                    - ./experiments -name node-restart
-                  command:
-                    - /bin/bash
-                  env:
-                    - name: SSH_USER
-                      value: root
-                    - name: TOTAL_CHAOS_DURATION
-                      value: "60"
-                    - name: RAMP_TIME
-                      value: ""
-                    - name: LIB
-                      value: litmus
-                    - name: LIB_IMAGE
-                      value: litmuschaos/go-runner:latest
-                    - name: TARGET_NODE
-                      value: ""
-                    - name: NODE_LABEL
-                      value: ""
-                    - name: TARGET_NODE_IP
-                      value: ""
-                  labels:
-                    name: node-restart
-                    app.kubernetes.io/part-of: litmus
-                    app.kubernetes.io/component: experiment-job
-                    app.kubernetes.io/version: latest
-                  secrets:
-                    - name: id-rsa
-                      mountPath: /mnt/
-      container:
-        args:
-          - kubectl apply -f /tmp/node-taint.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-drain.yaml -n {{workflow.parameters.adminModeNamespace}}
-            | kubectl apply -f /tmp/node-restart.yaml -n {{workflow.parameters.adminModeNamespace}}
-            |  sleep 30
-        command:
-          - sh
-          - -c
-        image: litmuschaos/k8s:latest
+                secrets:
+                  - name: id-rsa
+                    mountPath: /mnt/
+    container:
+      args:
+        - kubectl apply -f /tmp/node-taint.yaml -n {{workflow.parameters.adminModeNamespace}}
+          | kubectl apply -f /tmp/node-drain.yaml -n {{workflow.parameters.adminModeNamespace}}
+          | kubectl apply -f /tmp/node-restart.yaml -n {{workflow.parameters.adminModeNamespace}}
+          |  sleep 30
+      command:
+        - sh
+        - -c
+      image: litmuschaos/k8s:latest
 
-    - container:
-        args:
-        - -file=/tmp/chaosengine-node-drain.yaml
-        - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
-        name: ""
-        resources: {}
-      inputs:
-        artifacts:
-        - name: node-drain
-          path: /tmp/chaosengine-node-drain.yaml
-          raw:
-            data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              kind: ChaosEngine
-              metadata:
-                namespace: "{{workflow.parameters.adminModeNamespace}}"
-                name: infra-node-drain
-                labels:
-                  context: "node-drain_{{workflow.parameters.adminModeNamespace}}"
-              spec:
-                engineState: active
-                auxiliaryAppInfo: ""
-                chaosServiceAccount: litmus-admin
-                experiments:
-                  - name: node-drain
-                    spec:
-                      components:
-                        env:
-                          - name: TOTAL_CHAOS_DURATION
-                            value: "60"
-                          - name: TARGET_NODE
-                            value: ""
-                      probe: []
-                annotationCheck: "false"
-      metadata:
-        labels:
-          weight: "10"
-      name: node-drain
-      outputs: {}
-    - container:
-        args:
-        - -file=/tmp/chaosengine-node-taint.yaml
-        - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
-        name: ""
-        resources: {}
-      inputs:
-        artifacts:
-        - name: node-taint
-          path: /tmp/chaosengine-node-taint.yaml
-          raw:
-            data: |
-              apiVersion: litmuschaos.io/v1alpha1
-              kind: ChaosEngine
-              metadata:
-                namespace: "{{workflow.parameters.adminModeNamespace}}"
-                name: infra-node-taint
-                labels:
-                  context: "node-{{workflow.parameters.adminModeNamespace}}"
-              spec:
-                engineState: active
-                auxiliaryAppInfo: ""
-                chaosServiceAccount: litmus-admin
-                experiments:
-                  - name: node-taint
-                    spec:
-                      components:
-                        env:
-                          - name: TOTAL_CHAOS_DURATION
-                            value: "60"
-                          - name: TARGET_NODE
-                            value: ""
-                          - name: TAINTS
-                            value: node.kubernetes.io/unreachable:NoExecute
-                      probe: []
-                annotationCheck: "false"
-      metadata:
-        labels:
-          weight: "10"
-      name: node-taint
-      outputs: {}
-    - name: revert-chaos
-      container:
-        image: litmuschaos/k8s:latest
-        command: [sh, -c]
-        args:
-          [
-            "kubectl delete chaosengine infra-node-drain infra-node-taint -n {{workflow.parameters.adminModeNamespace}}"
-          ]
+  - container:
+      args:
+      - -file=/tmp/chaosengine-node-drain.yaml
+      - -saveName=/tmp/engine-name
+      image: litmuschaos/litmus-checker:latest
+      name: ""
+      resources: {}
+    inputs:
+      artifacts:
+      - name: node-drain
+        path: /tmp/chaosengine-node-drain.yaml
+        raw:
+          data: |
+            apiVersion: litmuschaos.io/v1alpha1
+            kind: ChaosEngine
+            metadata:
+              namespace: "{{workflow.parameters.adminModeNamespace}}"
+              name: infra-node-drain
+              labels:
+                context: "node-drain_{{workflow.parameters.adminModeNamespace}}"
+            spec:
+              engineState: active
+              auxiliaryAppInfo: ""
+              chaosServiceAccount: litmus-admin
+              experiments:
+                - name: node-drain
+                  spec:
+                    components:
+                      env:
+                        - name: TOTAL_CHAOS_DURATION
+                          value: "60"
+                        - name: TARGET_NODE
+                          value: ""
+                    probe: []
+              annotationCheck: "false"
+    metadata:
+      labels:
+        weight: "10"
+    name: node-drain
+    outputs: {}
+  - container:
+      args:
+      - -file=/tmp/chaosengine-node-taint.yaml
+      - -saveName=/tmp/engine-name
+      image: litmuschaos/litmus-checker:latest
+      name: ""
+      resources: {}
+    inputs:
+      artifacts:
+      - name: node-taint
+        path: /tmp/chaosengine-node-taint.yaml
+        raw:
+          data: |
+            apiVersion: litmuschaos.io/v1alpha1
+            kind: ChaosEngine
+            metadata:
+              namespace: "{{workflow.parameters.adminModeNamespace}}"
+              name: infra-node-taint
+              labels:
+                context: "node-{{workflow.parameters.adminModeNamespace}}"
+            spec:
+              engineState: active
+              auxiliaryAppInfo: ""
+              chaosServiceAccount: litmus-admin
+              experiments:
+                - name: node-taint
+                  spec:
+                    components:
+                      env:
+                        - name: TOTAL_CHAOS_DURATION
+                          value: "60"
+                        - name: TARGET_NODE
+                          value: ""
+                        - name: TAINTS
+                          value: node.kubernetes.io/unreachable:NoExecute
+                    probe: []
+              annotationCheck: "false"
+    metadata:
+      labels:
+        weight: "10"
+    name: node-taint
+    outputs: {}
+  - container:
+      args:
+      - -file=/tmp/chaosengine-node-restart.yaml
+      - -saveName=/tmp/engine-name
+      image: litmuschaos/litmus-checker:latest
+      name: ""
+      resources: {}
+    inputs:
+      artifacts:
+      - name: node-restart
+        path: /tmp/chaosengine-node-restart.yaml
+        raw:
+          data: |
+            apiVersion: litmuschaos.io/v1alpha1
+            kind: ChaosEngine
+            metadata:
+              namespace: "{{workflow.parameters.adminModeNamespace}}"
+              generateName: node-restart
+              labels:
+                instance_id: 10b5d6ef-4163-4e7d-88ea-ccd39b0b7c5a
+                context: node-restart_litmus
+                workflow_name: node-custom-chaos-workflow-1650600260
+            spec:
+              engineState: active
+              auxiliaryAppInfo: ""
+              chaosServiceAccount: litmus-admin
+              experiments:
+                - name: node-restart
+                  spec:
+                    components:
+                      env:
+                        - name: TOTAL_CHAOS_DURATION
+                          value: "60"
+                        - name: TARGET_NODE
+                          value: ""
+                        - name: TARGET_NODE_IP
+                          value: ""
+                        - name: SSH_USER
+                          value: root
+                    probe: []
+              annotationCheck: "false"
+    metadata:
+      labels:
+        weight: "10"
+  - name: revert-chaos
+    container:
+      image: litmuschaos/k8s:latest
+      command: [sh, -c]
+      args:
+        [
+          "kubectl delete chaosengine infra-node-drain infra-node-taint -n {{workflow.parameters.adminModeNamespace}}"
+        ]

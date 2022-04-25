@@ -438,7 +438,8 @@ spec:
           - -c
         image: litmuschaos/k8s:latest
 
-    - container:
+    - name: node-drain
+      container:
         args:
           - -file=/tmp/chaosengine-node-drain.yaml
           - -saveName=/tmp/engine-name
@@ -474,9 +475,10 @@ spec:
       metadata:
         labels:
           weight: "10"
-      name: node-drain
+      # name: node-drain
       outputs: {}
-    - container:
+    - name: node-taint
+      container:
         args:
           - -file=/tmp/chaosengine-node-taint.yaml
           - -saveName=/tmp/engine-name
@@ -493,7 +495,7 @@ spec:
                 namespace: "{{workflow.parameters.adminModeNamespace}}"
                 name: infra-node-taint
                 labels:
-                  context: "node-{{workflow.parameters.adminModeNamespace}}"
+                  context: "node-taint_{{workflow.parameters.adminModeNamespace}}"
               spec:
                 engineState: active
                 auxiliaryAppInfo: ""
@@ -514,9 +516,10 @@ spec:
       metadata:
         labels:
           weight: "10"
-      name: node-taint
+      # name: node-taint
       outputs: {}
-    - container:
+    - name: node-restart
+      container:
         args:
           - -file=/tmp/chaosengine-node-restart.yaml
           - -saveName=/tmp/engine-name
@@ -531,9 +534,9 @@ spec:
               kind: ChaosEngine
               metadata:
                 namespace: "{{workflow.parameters.adminModeNamespace}}"
-                generateName: node-restart
+                name: infra-node-restart
                 labels:
-                  context: "node-{{workflow.parameters.adminModeNamespace}}"
+                  context: "node-restart_{{workflow.parameters.adminModeNamespace}}"
               spec:
                 engineState: active
                 auxiliaryAppInfo: ""
@@ -562,5 +565,5 @@ spec:
         command: [sh, -c]
         args:
           [
-            "kubectl delete chaosengine infra-node-drain infra-node-taint -n {{workflow.parameters.adminModeNamespace}}"
+            "kubectl delete chaosengine infra-node-drain infra-node-taint infra-node-restart -n {{workflow.parameters.adminModeNamespace}}"
           ]

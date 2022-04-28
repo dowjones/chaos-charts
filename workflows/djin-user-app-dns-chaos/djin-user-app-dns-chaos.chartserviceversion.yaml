@@ -2,30 +2,24 @@ apiVersion: litmuchaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
   createdAt: 2022-04-13T22:28:08Z
-  name: djin-datamgmt-app-network-chaos
-  version: 0.1.0
+  name: djin-user-app-dns-chaos
+  version: 0.2.0
   annotations:
-    categories: app-network-chaos
+    categories: app-dns-chaos
     chartDescription: Injects pod network chaos on applications using cmd probe.
 spec:
-  displayName: djin-datamgmt-app-network-chaos
+  displayName: djin-user-app-network-chaos
   categoryDescription: >
-    It generate loads, inject pod network chaos on ns djin-datamgmt app pods,
+    It generate loads, inject pod dns chaos on ns djin-user app pods,
     uninstall the application and revert the chaos
   experiments:
-    - pod-network-loss
-    - pod-network-latency
-    - pod-network-corruption
-    - pod-network-dupe
-    - pod-network-partition
     - pod-dns-error
     - pod-dns-spoof
   keywords:
     - Kubernetes
     - Pod
     - Network
-    - DNS
-    - Latency
+    - Spoof
   platforms:
     - GKE
     - Minikube

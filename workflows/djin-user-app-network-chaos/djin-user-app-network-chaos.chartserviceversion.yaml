@@ -1,30 +1,28 @@
 apiVersion: litmuchaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
-  createdAt: 2021-04-04T13:41:08Z
-  name: djin-dsv-app-compute-storage-chaos
-  version: 1.0.0
+  createdAt: 2022-04-13T22:28:08Z
+  name: djin-user-app-network-chaos
+  version: 0.2.0
   annotations:
-    categories: app-compute-storage-chaos
-    chartDescription: Injects chaos on application pods using cmd probe.
+    categories: app-network-chaos
+    chartDescription: Injects pod network chaos on applications using cmd probe.
 spec:
-  displayName: djin-dsv-app-compute-storage-chaos
+  displayName: djin-user-app-network-chaos
   categoryDescription: >
-    It generate loads, inject compute and storage chaos on ns djin-dsv app pods,
+    It generate loads, inject pod network chaos on ns djin-user app pods,
     uninstall the application and revert the chaos
   experiments:
-    - pod-delete
-    - pod-memory-hog
-    - pod-cpu-hog
-    - pod-io-stress
-    - disk-fill
+    - pod-network-loss
+    - pod-network-latency
+    - pod-network-corruption
+    - pod-network-dupe
   keywords:
     - Kubernetes
     - Pod
-    - Memory
-    - CPU
-    - Disk_Stress
-    - Ephemeral_Storage
+    - Network
+    - DNS
+    - Latency
   platforms:
     - GKE
     - Minikube

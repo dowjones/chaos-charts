@@ -3,7 +3,7 @@ kind: ChartServiceVersion
 metadata:
   createdAt: 2022-04-13T22:28:08Z
   name: djin-web-app-network-chaos
-  version: 0.1.0
+  version: 0.2.0
   annotations:
     categories: app-network-chaos
     chartDescription: Injects pod network chaos on applications using cmd probe.
@@ -17,9 +17,6 @@ spec:
     - pod-network-latency
     - pod-network-corruption
     - pod-network-dupe
-    - pod-network-partition
-    - pod-dns-error
-    - pod-dns-spoof
   keywords:
     - Kubernetes
     - Pod

@@ -2,13 +2,13 @@ apiVersion: litmuchaos.io/v1alpha1
 kind: ChartServiceVersion
 metadata:
   createdAt: 2022-04-13T22:28:08Z
-  name: kiali-app-network-chaos
+  name: kiali-app-dns-chaos
   version: 0.2.0
   annotations:
-    categories: kiali-app-network-chaos
+    categories: kiali-app-dns-chaos
     chartDescription: Injects pod network chaos on applications using cmd probe.
 spec:
-  displayName: kiali-app-network-chaos
+  displayName: kiali-app-dns-chaos
   categoryDescription: >
     It generate loads, inject pod dns chaos on kiali app pods,
     uninstall the application and revert the chaos

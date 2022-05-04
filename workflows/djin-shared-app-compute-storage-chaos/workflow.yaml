@@ -773,6 +773,8 @@ spec:
                           env:
                             - name: TOTAL_CHAOS_DURATION
                               value: "30"
+                            - name: RAMP_TIME
+                              value: "5"
                             - name: CHAOS_INTERVAL
                               value: "10"
                             - name: FORCE
@@ -815,6 +817,8 @@ spec:
                           env:
                             - name: TOTAL_CHAOS_DURATION
                               value: "60"
+                            - name: RAMP_TIME
+                              value: "5"
                             - name: MEMORY_CONSUMPTION
                               value: "500"
                             - name: PODS_AFFECTED_PERC
@@ -860,6 +864,8 @@ spec:
                           env:
                             - name: TOTAL_CHAOS_DURATION
                               value: "60" # in seconds
+                            - name: RAMP_TIME
+                              value: "5"
                             - name: CPU_CORES
                               value: "1"
                             - name: PODS_AFFECTED_PERC
@@ -902,6 +908,8 @@ spec:
                           env:
                             - name: TOTAL_CHAOS_DURATION
                               value: "120"
+                            - name: RAMP_TIME
+                              value: "5"
                             - name: FILESYSTEM_UTILIZATION_PERCENTAGE
                               value: "10"
                             - name: PODS_AFFECTED_PERC
@@ -946,6 +954,8 @@ spec:
                           env:
                             - name: TOTAL_CHAOS_DURATION
                               value: "60"
+                            - name: RAMP_TIME
+                              value: "5"
                             - name: FILL_PERCENTAGE
                               value: "80"
                             - name: PODS_AFFECTED_PERC

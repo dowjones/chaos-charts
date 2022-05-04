@@ -172,7 +172,7 @@ spec:
                       - name: TOTAL_CHAOS_DURATION
                         value: "15"
                       - name: RAMP_TIME
-                        value: ""
+                        value: "5"
                       - name: FORCE
                         value: "true"
                       - name: CHAOS_INTERVAL
@@ -328,7 +328,7 @@ spec:
                       - name: PODS_AFFECTED_PERC
                         value: ""
                       - name: RAMP_TIME
-                        value: ""
+                        value: "5"
                       - name: LIB
                         value: litmus
                       - name: LIB_IMAGE
@@ -407,7 +407,7 @@ spec:
 
                     ## Period to wait before and after injection of chaos in sec
                     - name: RAMP_TIME
-                      value: ""
+                      value: "5"
 
                     - name: LIB
                       value: "litmus"
@@ -561,7 +561,7 @@ spec:
                       - name: NODE_LABEL
                         value: ""
                       - name: RAMP_TIME
-                        value: ""
+                        value: "5"
                       - name: LIB
                         value: litmus
                       - name: LIB_IMAGE
@@ -712,7 +712,7 @@ spec:
                       - name: TOTAL_CHAOS_DURATION
                         value: "60"
                       - name: RAMP_TIME
-                        value: ""
+                        value: "5"
                       - name: LIB
                         value: litmus
                       - name: DATA_BLOCK_SIZE

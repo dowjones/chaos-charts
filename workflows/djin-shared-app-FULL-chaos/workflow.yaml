@@ -1439,7 +1439,7 @@ spec:
                     context: "pod-delete_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-user
+                    appns: djin-shared
                     applabel: mass_chaos=true
                     appkind: deployment
                   engineState: active
@@ -1482,7 +1482,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-user
+                    appns: djin-shared
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1525,7 +1525,7 @@ spec:
                     context: "pod-cpu-hog_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-user
+                    appns: djin-shared
                     applabel: mass_chaos=true
                     appkind: deployment
                   jobCleanUpPolicy: retain
@@ -1569,7 +1569,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-user
+                    appns: djin-shared
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
@@ -1613,7 +1613,7 @@ spec:
                 spec:
                   engineState: active
                   appinfo:
-                    appns: djin-user
+                    appns: djin-shared
                     applabel: mass_chaos=true
                     appkind: deployment
                   chaosServiceAccount: litmus-admin

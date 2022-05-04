@@ -59,7 +59,7 @@ spec:
                       name: pod-network-loss
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: chaosexperiment
-                      app.kubernetes.io/version: 2.5.0
+                      app.kubernetes.io/version: latest
                   spec:
                     definition:
                       scope: Namespaced
@@ -163,7 +163,7 @@ spec:
                             - patch
                             - update
                             - delete
-                      image: litmuschaos/go-runner:2.5.0
+                      image: litmuschaos/go-runner:latest
                       imagePullPolicy: Always
                       args:
                         - -c
@@ -174,7 +174,7 @@ spec:
                         - name: TARGET_CONTAINER
                           value: ""
                         - name: LIB_IMAGE
-                          value: litmuschaos/go-runner:2.5.0
+                          value: litmuschaos/go-runner:latest
                         - name: NETWORK_INTERFACE
                           value: eth0
                         - name: TC_IMAGE
@@ -206,7 +206,7 @@ spec:
                         app.kubernetes.io/part-of: litmus
                         app.kubernetes.io/component: experiment-job
                         app.kubernetes.io/runtime-api-usage: "true"
-                        app.kubernetes.io/version: 2.5.0
+                        app.kubernetes.io/version: latest
             - name: pod-network-latency
               path: /tmp/pod-network-latency.yaml
               raw:

@@ -61,7 +61,7 @@ spec:
                       name: pod-delete
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: chaosexperiment
-                      app.kubernetes.io/version: 2.5.0
+                      app.kubernetes.io/version: latest
                   spec:
                     definition:
                       scope: Namespaced
@@ -165,7 +165,7 @@ spec:
                             - patch
                             - update
                             - delete
-                      image: litmuschaos/go-runner:2.5.0
+                      image: litmuschaos/go-runner:latest
                       imagePullPolicy: Always
                       args:
                         - -c
@@ -193,7 +193,7 @@ spec:
                         name: pod-delete
                         app.kubernetes.io/part-of: litmus
                         app.kubernetes.io/component: experiment-job
-                        app.kubernetes.io/version: 2.5.0
+                        app.kubernetes.io/version: latest
             - name: pod-memory-hog
               path: /tmp/pod-memory-hog.yaml
               raw:
@@ -211,7 +211,7 @@ spec:
                       name: pod-memory-hog
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: chaosexperiment
-                      app.kubernetes.io/version: 2.5.0
+                      app.kubernetes.io/version: latest
                   spec:
                     definition:
                       scope: Namespaced
@@ -315,7 +315,7 @@ spec:
                             - patch
                             - update
                             - delete
-                      image: litmuschaos/go-runner:2.5.0
+                      image: litmuschaos/go-runner:latest
                       imagePullPolicy: Always
                       args:
                         - -c
@@ -336,7 +336,7 @@ spec:
                         - name: LIB
                           value: litmus
                         - name: LIB_IMAGE
-                          value: litmuschaos/go-runner:2.5.0
+                          value: litmuschaos/go-runner:latest
                         - name: STRESS_IMAGE
                           value: alexeiled/stress-ng:latest-ubuntu
                         - name: CONTAINER_RUNTIME
@@ -352,7 +352,7 @@ spec:
                         app.kubernetes.io/part-of: litmus
                         app.kubernetes.io/component: experiment-job
                         app.kubernetes.io/runtime-api-usage: "true"
-                        app.kubernetes.io/version: 2.5.0
+                        app.kubernetes.io/version: latest
             - name: pod-cpu-hog
               path: /tmp/pod-cpu-hog.yaml
               raw:

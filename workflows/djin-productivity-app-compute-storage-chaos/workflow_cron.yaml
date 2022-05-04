@@ -61,7 +61,7 @@ spec:
                       name: pod-delete
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: chaosexperiment
-                      app.kubernetes.io/version: 2.5.0
+                      app.kubernetes.io/version: latest
                   spec:
                     definition:
                       scope: Namespaced
@@ -165,7 +165,7 @@ spec:
                             - patch
                             - update
                             - delete
-                      image: litmuschaos/go-runner:2.5.0
+                      image: litmuschaos/go-runner:latest
                       imagePullPolicy: Always
                       args:
                         - -c
@@ -193,7 +193,7 @@ spec:
                         name: pod-delete
                         app.kubernetes.io/part-of: litmus
                         app.kubernetes.io/component: experiment-job
-                        app.kubernetes.io/version: 2.5.0
+                        app.kubernetes.io/version: latest
             - name: pod-memory-hog
               path: /tmp/pod-memory-hog.yaml
               raw:

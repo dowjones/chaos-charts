@@ -1,10 +1,10 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: app-compute-storage-chaos-workflow-
+  generateName: app-compute-network-chaos-workflow-
   namespace: litmus
   labels:
-    subject: "app-compute-storage-chaos_{{workflow.parameters.appNamespace}}"
+    subject: "app-compute-network-chaos_{{workflow.parameters.appNamespace}}"
 spec:
   arguments:
     parameters:
@@ -12,7 +12,7 @@ spec:
         value: litmus
       - name: appNamespace
         value: djin-shared
-  entrypoint: app-compute-storage-chaos
+  entrypoint: app-compute-network-chaos
   podGC:
     strategy: OnWorkflowSuccess
   securityContext:
@@ -20,7 +20,7 @@ spec:
     runAsUser: 1000
   serviceAccountName: argo-chaos
   templates:
-    - name: app-compute-storage-chaos
+    - name: app-compute-network-chaos
       steps:
         - - name: install-chaos-experiments
             template: install-chaos-experiments

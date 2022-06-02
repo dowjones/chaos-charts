@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: infra-single-node-chaos-workflow-
+  name: infra-single-node-chaos-workflow
   namespace: litmus
   labels:
     subject: "infra-single-node-chaos_{{workflow.parameters.adminModeNamespace}}"

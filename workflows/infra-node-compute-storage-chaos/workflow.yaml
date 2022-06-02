@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: infra-node-compute-storage-chaos-workflow-
+  name: infra-node-compute-storage-chaos-workflow
   namespace: litmus
   labels:
     subject: "infra-node-compute-storage-chaos_{{workflow.parameters.adminModeNamespace}}"

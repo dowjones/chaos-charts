@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: app-compute-storage-chaos-workflow-
+  name: app-compute-storage-chaos-workflow
   namespace: litmus
   labels:
     subject: "app-compute-storage-chaos_{{workflow.parameters.appNamespace}}"

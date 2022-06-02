@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  generateName: app-network-chaos-workflow-
+  name: app-network-chaos-workflow
   namespace: litmus
   labels:
     subject: "app-network-chaos_{{workflow.parameters.appNamespace}}"

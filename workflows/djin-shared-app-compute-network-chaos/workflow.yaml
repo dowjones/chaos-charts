@@ -1114,7 +1114,7 @@ spec:
                 spec:
                   appinfo:
                     appns: djin-shared
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   engineState: active
                   chaosServiceAccount: litmus-admin
@@ -1159,7 +1159,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-shared
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1204,7 +1204,7 @@ spec:
                 spec:
                   appinfo:
                     appns: djin-shared
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   jobCleanUpPolicy: retain
                   engineState: 'active'
@@ -1250,7 +1250,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-shared
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1296,7 +1296,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-shared
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1344,7 +1344,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-shared
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:
@@ -1390,7 +1390,7 @@ spec:
                   engineState: active
                   appinfo:
                     appns: djin-shared
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   chaosServiceAccount: litmus-admin
                   experiments:

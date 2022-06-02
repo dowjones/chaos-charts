@@ -367,7 +367,7 @@ spec:
                 spec:
                   appinfo:
                     appns: djin-user
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   engineState: active
                   auxiliaryAppInfo: ""
@@ -414,7 +414,7 @@ spec:
                 spec:
                   appinfo:
                     appns: djin-user
-                    applabel: mass_chaos=true
+                    applabel: appid=
                     appkind: deployment
                   engineState: active
                   auxiliaryAppInfo: ""

@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  name: app-compute-network-chaos-workflow
+  name: app-compute-network-chaos
   namespace: litmus
   labels:
     subject: "app-compute-network-chaos_{{workflow.parameters.appNamespace}}"

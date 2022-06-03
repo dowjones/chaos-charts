@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Workflow
 metadata:
-  name: app-dns-chaos-workflow
+  name: app-dns-chaos
   namespace: litmus
   labels:
     subject: "app-dns-chaos_{{workflow.parameters.appNamespace}}"

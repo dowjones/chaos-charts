@@ -11,7 +11,7 @@ spec:
       - name: adminModeNamespace
         value: litmus
       - name: appNamespace
-        value: djin-platform
+        value: djin-content
   entrypoint: app-dns-chaos
   podGC:
     strategy: OnWorkflowSuccess
@@ -366,7 +366,7 @@ spec:
                     context: "pod-dns-error_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-platform
+                    appns: djin-content
                     applabel: appid=
                     appkind: deployment
                   engineState: active
@@ -413,7 +413,7 @@ spec:
                     context: "pod-dns-spoof_{{workflow.parameters.appNamespace}}"
                 spec:
                   appinfo:
-                    appns: djin-platform
+                    appns: djin-content
                     applabel: appid=
                     appkind: deployment
                   engineState: active

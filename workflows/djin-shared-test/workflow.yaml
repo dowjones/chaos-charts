@@ -245,5 +245,5 @@ spec:
           command: [sh, -c]
           args:
             [
-              "kubectl delete chaosengine app-pod-delete app-pod-memory-hog app-pod-cpu-hog app-pod-network-loss app-pod-network-latency app-pod-network-corruption app-pod-network-duplication -n {{workflow.parameters.adminModeNamespace}}"
+              "kubectl delete chaosengine app-pod-delete -n {{workflow.parameters.adminModeNamespace}}"
             ]

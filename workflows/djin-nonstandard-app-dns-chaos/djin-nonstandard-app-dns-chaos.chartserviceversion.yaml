@@ -10,7 +10,7 @@ metadata:
 spec:
   displayName: djin-nonstandard-app-network-chaos
   categoryDescription: >
-    It generate loads, inject pod dns chaos on ns djin-nonstandard app pods,
+    It generate loads, inject pod dns chaos on ns djin-nonstandard appid targeted pods,
     uninstall the application and revert the chaos
   experiments:
     - pod-dns-error

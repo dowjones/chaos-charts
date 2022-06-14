@@ -10,7 +10,7 @@ metadata:
 spec:
   displayName: djin-dna-app-compute-network-chaos
   categoryDescription: >
-    It generate loads, inject compute and network chaos on ns djin-dna app pods,
+    It generate loads, inject compute and network chaos on ns djin-dna appid targeted pods,
     uninstall the application and revert the chaos
   experiments:
     - pod-delete

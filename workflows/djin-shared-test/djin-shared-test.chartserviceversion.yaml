@@ -10,17 +10,12 @@ metadata:
 spec:
   displayName: djin-shared-test
   categoryDescription: >
-    It generate loads, inject compute and network chaos on ns djin-shared app pods,
-    uninstall the application and revert the chaos
+    CRONWORKFLOW
   experiments:
     - pod-delete
   keywords:
     - Kubernetes
     - Pod
-    - Memory
-    - CPU
-    - Disk_Stress
-    - Ephemeral_Storage
   platforms:
     - GKE
     - Minikube

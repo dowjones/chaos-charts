@@ -1,15 +1,14 @@
 apiVersion: argoproj.io/v1alpha1
 kind: CronWorkflow
 metadata:
-  name: test-pod-delete
+  name: app-compute-network-chaos
   namespace: litmus
   labels:
-    subject: "test-pod-delete_{{workflow.parameters.appNamespace}}"
+    subject: "app-compute-network-chaos_{{workflow.parameters.appNamespace}}"
 spec:
-  schedule: 0 7 * * 1-5
+  schedule: 00 10 * * 1-5
   concurrencyPolicy: Forbid
   startingDeadlineSeconds: 0
-  # timezone: America/New_York
   workflowSpec:
     arguments:
       parameters:
@@ -17,7 +16,7 @@ spec:
           value: litmus
         - name: appNamespace
           value: djin-shared
-    entrypoint: test-pod-delete
+    entrypoint: app-compute-network-chaos
     podGC:
       strategy: OnWorkflowSuccess
     securityContext:
@@ -25,7 +24,7 @@ spec:
       runAsUser: 1000
     serviceAccountName: argo-chaos
     templates:
-      - name: test-pod-delete
+      - name: app-compute-network-chaos
         steps:
           - - name: install-chaos-experiments
               template: install-chaos-experiments

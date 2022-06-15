@@ -211,7 +211,7 @@ spec:
                   spec:
                     appinfo:
                       appns: djin-shared
-                      applabel: appid=
+                      applabel: mass_chaos=true
                       appkind: deployment
                     engineState: active
                     chaosServiceAccount: litmus-admin

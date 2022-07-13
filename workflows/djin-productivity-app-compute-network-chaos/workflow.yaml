@@ -61,7 +61,7 @@ spec:
                     name: pod-delete
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                    app.kubernetes.io/version: 2.9.0
                 spec:
                   definition:
                     scope: Namespaced
@@ -165,7 +165,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:latest
+                    image: litmuschaos/go-runner:2.9.0
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -193,7 +193,7 @@ spec:
                       name: pod-delete
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
-                      app.kubernetes.io/version: latest
+                      app.kubernetes.io/version: 2.9.0
           - name: pod-memory-hog
             path: /tmp/pod-memory-hog.yaml
             raw:
@@ -211,7 +211,7 @@ spec:
                     name: pod-memory-hog
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                    app.kubernetes.io/version: 2.9.0
                 spec:
                   definition:
                     scope: Namespaced
@@ -315,7 +315,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:latest
+                    image: litmuschaos/go-runner:2.9.0
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -336,7 +336,7 @@ spec:
                       - name: LIB
                         value: litmus
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
+                        value: litmuschaos/go-runner:2.9.0
                       - name: STRESS_IMAGE
                         value: alexeiled/stress-ng:latest-ubuntu
                       - name: CONTAINER_RUNTIME
@@ -352,7 +352,7 @@ spec:
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
                       app.kubernetes.io/runtime-api-usage: "true"
-                      app.kubernetes.io/version: latest
+                      app.kubernetes.io/version: 2.9.0
           - name: pod-cpu-hog
             path: /tmp/pod-cpu-hog.yaml
             raw:
@@ -387,7 +387,7 @@ spec:
                           - "patch"
                           - "update"
                           - "delete"
-                    image: "litmuschaos/go-runner:latest"
+                    image: "litmuschaos/go-runner:2.9.0"
                     imagePullPolicy: Always
                     args:
                     - -c
@@ -438,7 +438,7 @@ spec:
                     name: pod-network-loss
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                    app.kubernetes.io/version: 2.9.0
                 spec:
                   definition:
                     scope: Namespaced
@@ -542,7 +542,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:latest
+                    image: litmuschaos/go-runner:2.9.0
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -553,7 +553,7 @@ spec:
                       - name: TARGET_CONTAINER
                         value: ""
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
+                        value: litmuschaos/go-runner:2.9.0
                       - name: NETWORK_INTERFACE
                         value: eth0
                       - name: TC_IMAGE
@@ -585,7 +585,7 @@ spec:
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
                       app.kubernetes.io/runtime-api-usage: "true"
-                      app.kubernetes.io/version: latest
+                      app.kubernetes.io/version: 2.9.0
           - name: pod-network-latency
             path: /tmp/pod-network-latency.yaml
             raw:
@@ -601,7 +601,7 @@ spec:
                     name: pod-network-latency
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                    app.kubernetes.io/version: 2.9.0
                 spec:
                   definition:
                     scope: Namespaced
@@ -705,7 +705,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:latest
+                    image: litmuschaos/go-runner:2.9.0
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -718,7 +718,7 @@ spec:
                       - name: NETWORK_INTERFACE
                         value: eth0
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
+                        value: litmuschaos/go-runner:2.9.0
                       - name: TC_IMAGE
                         value: gaiadocker/iproute2
                       - name: NETWORK_LATENCY
@@ -752,7 +752,7 @@ spec:
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
                       app.kubernetes.io/runtime-api-usage: "true"
-                      app.kubernetes.io/version: latest
+                      app.kubernetes.io/version: 2.9.0
           - name: pod-network-corruption
             path: /tmp/pod-network-corruption.yaml
             raw:
@@ -768,7 +768,7 @@ spec:
                     name: pod-network-corruption
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                    app.kubernetes.io/version: 2.9.0
                 spec:
                   definition:
                     scope: Namespaced
@@ -872,7 +872,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:latest
+                    image: litmuschaos/go-runner:2.9.0
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -883,7 +883,7 @@ spec:
                       - name: TARGET_CONTAINER
                         value: ""
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
+                        value: litmuschaos/go-runner:2.9.0
                       - name: NETWORK_INTERFACE
                         value: eth0
                       - name: TC_IMAGE
@@ -917,7 +917,7 @@ spec:
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
                       app.kubernetes.io/runtime-api-usage: "true"
-                      app.kubernetes.io/version: latest
+                      app.kubernetes.io/version: 2.9.0
           - name: pod-network-duplication
             path: /tmp/pod-network-duplication.yaml
             raw:
@@ -933,7 +933,7 @@ spec:
                     name: pod-network-duplication
                     app.kubernetes.io/part-of: litmus
                     app.kubernetes.io/component: chaosexperiment
-                    app.kubernetes.io/version: latest
+                    app.kubernetes.io/version: 2.9.0
                 spec:
                   definition:
                     scope: Namespaced
@@ -1037,7 +1037,7 @@ spec:
                           - patch
                           - update
                           - delete
-                    image: litmuschaos/go-runner:latest
+                    image: litmuschaos/go-runner:2.9.0
                     imagePullPolicy: Always
                     args:
                       - -c
@@ -1066,7 +1066,7 @@ spec:
                       - name: PODS_AFFECTED_PERC
                         value: ""
                       - name: LIB_IMAGE
-                        value: litmuschaos/go-runner:latest
+                        value: litmuschaos/go-runner:2.9.0
                       - name: CONTAINER_RUNTIME
                         value: docker
                       - name: DESTINATION_IPS
@@ -1082,7 +1082,7 @@ spec:
                       app.kubernetes.io/part-of: litmus
                       app.kubernetes.io/component: experiment-job
                       app.kubernetes.io/runtime-api-usage: "true"
-                      app.kubernetes.io/version: latest
+                      app.kubernetes.io/version: 2.9.0
       container:
         args:
           - kubectl apply -f /tmp/pod-network-loss.yaml -n {{workflow.parameters.adminModeNamespace}}
@@ -1095,7 +1095,7 @@ spec:
         command:
           - sh
           - -c
-        image: litmuschaos/k8s:latest
+        image: litmuschaos/k8s:2.8.0
 
     - name: pod-delete
       inputs:
@@ -1139,7 +1139,7 @@ spec:
         args:
           - -file=/tmp/chaosengine-pod-delete.yaml
           - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+        image: litmuschaos/litmus-checker:2.9.0
 
     - name: pod-memory-hog
       inputs:
@@ -1185,7 +1185,7 @@ spec:
         args:
           - -file=/tmp/chaosengine-pod-memory-hog.yaml
           - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+        image: litmuschaos/litmus-checker:2.9.0
 
     - name: pod-cpu-hog
       inputs:
@@ -1227,7 +1227,7 @@ spec:
                             - name: SOCKET_PATH
                               value: /var/run/docker.sock
       container:
-        image: litmuschaos/litmus-checker:latest
+        image: litmuschaos/litmus-checker:2.9.0
         args:
           - -file=/tmp/chaosengine.yaml
           - -saveName=/tmp/engine-name
@@ -1276,7 +1276,7 @@ spec:
         args:
           - -file=/tmp/chaosengine-pod-network-loss.yaml
           - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+        image: litmuschaos/litmus-checker:2.9.0
 
     - name: pod-network-latency
       inputs:
@@ -1324,7 +1324,7 @@ spec:
         args:
           - -file=/tmp/chaosengine-pod-network-latency.yaml
           - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+        image: litmuschaos/litmus-checker:2.9.0
 
     - name: pod-network-corruption
       inputs:
@@ -1370,7 +1370,7 @@ spec:
         args:
           - -file=/tmp/chaosengine-pod-network-corruption.yaml
           - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+        image: litmuschaos/litmus-checker:2.9.0
 
     - name: pod-network-duplication
       inputs:
@@ -1416,7 +1416,7 @@ spec:
         args:
           - -file=/tmp/chaosengine-pod-network-duplication.yaml
           - -saveName=/tmp/engine-name
-        image: litmuschaos/litmus-checker:latest
+        image: litmuschaos/litmus-checker:2.9.0
 
     - name: revert-chaos
       container:
